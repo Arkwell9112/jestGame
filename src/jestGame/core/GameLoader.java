@@ -12,7 +12,7 @@ import java.util.jar.JarFile;
 
 import jestGame.api.IMod;
 
-public class GameLoader {
+public class GameLoader extends Observable {
 	public static void main(String[] args) {
 		System.out.println("Hello World");
 	}
@@ -92,5 +92,11 @@ public class GameLoader {
 		}
 		// On retourne enfin un tableau de tous les mods chargés
 		return mods.toArray(new IMod[mods.size()]);
+	}
+
+	@Override
+	public void notifyBack(NotEvent backCallEvent, Object[] backArgs) {
+		
+		
 	}
 }
