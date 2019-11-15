@@ -1,4 +1,4 @@
-package jestGame.core;
+package fr.utt.lo02.jestgame.core;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,4 +1,4 @@
-package jestGame.core;
+package fr.utt.lo02.jestgame.core;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.jar.JarFile;
 
-import jestGame.api.IMod;
+import fr.utt.lo02.jestgame.api.IMod;
 
 public class GameLoader extends Observable {
 	public static void main(String[] args) {

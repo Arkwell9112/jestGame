@@ -1,4 +1,4 @@
-package jestGame.core;
+package fr.utt.lo02.jestgame.core;
 
 import java.io.File;
 import java.io.FileFilter;
