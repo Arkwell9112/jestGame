@@ -21,7 +21,7 @@ public class Player {
 	public Player(String name, int rank, IObserver interfac) {
 		this.name=name;
 		this.rank=rank;
-		this.interfac=interfac;
+		
 		
 	}
 	
