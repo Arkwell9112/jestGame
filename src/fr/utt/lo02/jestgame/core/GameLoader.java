@@ -13,6 +13,11 @@ import java.util.jar.JarFile;
 import fr.utt.lo02.jestgame.api.IMod;
 
 public class GameLoader extends Observable {
+	
+	private Party currentParty;
+	private IObserver currentInterface;
+	private IMod[] loadedMods;
+	
 	public static void main(String[] args) {
 		System.out.println("Hello World");
 	}
@@ -93,10 +98,20 @@ public class GameLoader extends Observable {
 		// On retourne enfin un tableau de tous les mods chargés
 		return mods.toArray(new IMod[mods.size()]);
 	}
+	
+	public GameLoader(IMod[] mods) {
+		this.loadedMods = mods;
+		currentInterface = new CommandInterface();
+		currentInterface.update(this, NotEvent.MAIN_MENU, loadedMods);
+	}
 
 	@Override
 	public void notifyBack(NotEvent backCallEvent, Object[] backArgs) {
 		
+		
+	}
+	
+	public void startGame() {
 		
 	}
 }
