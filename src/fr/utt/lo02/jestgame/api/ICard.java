@@ -9,7 +9,7 @@ public interface ICard {
 	public Player chooseTrophyOwner(List<Player> players);
 	public int getUpdatedGameFaceValue(List<Player> players);
 	public int endFaceValue(List<Player> players);
-	public int endSpecialFaceValue(List<Player> players);
+	public int endSpecialFaceValue(List<Player> players, Player myPlayer);
 	public String getName();
 	public String getColor();
 	public int getColorValue();
