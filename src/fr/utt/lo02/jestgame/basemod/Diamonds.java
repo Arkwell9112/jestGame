@@ -1,5 +1,6 @@
 package fr.utt.lo02.jestgame.basemod;
 
+import java.util.Iterator;
 import java.util.List;
 
 import fr.utt.lo02.jestgame.api.ICard;
@@ -13,7 +14,8 @@ public class Diamonds extends CouldBeAnAce implements ICard{
 	}
 	
 	public Player chooseTrophyOwner(List<Player> players) {
-		return null;
+		Iterator<Player> it= players.iterator();
+		
 	}
 	public int getUpdatedGameFaceValue(List<Player> players) {
 		return 0;
@@ -22,7 +24,19 @@ public class Diamonds extends CouldBeAnAce implements ICard{
 		return 0;
 	}
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
-		return 0;
+		
+
+		
+		Iterator<ICard> it= myPlayer.getCapturedCards().iterator();
+		while(it.hasNext()) {
+			ICard currentCard = it.next();
+			if(currentCard.getColorValue()>=2) {
+				
+				
+			}
+		}
+		
+		
 	}
 
 }
