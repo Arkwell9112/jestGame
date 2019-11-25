@@ -24,23 +24,24 @@ public class CouldBeAnAce extends Card implements ICard {
 				return current.getColorValue();
 			}
 		}
+		return 0;
 	
-		
-		
 		
 	}
 
 	@Override
 	public Player chooseTrophyOwner(List<Player> players) {
-		Player best=null;
-		Iterator<Player> it=players.iterator();
+		Iterator<Player> it = players.iterator();
+		Player majority=null;
 		while(it.hasNext()) {
 			Player current=it.next();
-			if(best == null) {
-				best=current;
+			if(majority==null) {
+				majority=current;
+			}else if(current.calculateScore(players)>majority.calculateScore(players)) {
+				majority=current;
 			}
-			
 		}
+		return majority;
 	}
 	
 	@Override
