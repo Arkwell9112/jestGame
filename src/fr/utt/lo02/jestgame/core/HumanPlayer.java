@@ -31,7 +31,8 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void yourTurnFaceUp(List<Player> players) {
-		super.notifyAll(NotEvent.FACE_UP_MENU, players.toArray(new Object[players.size()]));
+		Object[] arg = {this};
+		super.notifyAll(NotEvent.FACE_UP_MENU, arg);
 
 	}
 

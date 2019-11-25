@@ -23,7 +23,7 @@ public class CommandInterface implements IObserver {
 		} else if (callEvent == NotEvent.CATCH_UP_MENU || callEvent == NotEvent.CATCH_UP_MENU_BOT
 				|| callEvent == NotEvent.CATCH_UP_MENU_ERROR || callEvent == NotEvent.CATCH_UP_MENU_SUCCESS) {
 			setCatchUpMenu(callEvent, args, observed);
-		} else if(callEvent == NotEvent.FACE_UP_MENU || callEvent == NotEvent.FACE_UP_MENU_BOT) {
+		} else if (callEvent == NotEvent.FACE_UP_MENU || callEvent == NotEvent.FACE_UP_MENU_BOT) {
 			setFaceUpMenu(callEvent, args, observed);
 		}
 	}
@@ -256,6 +256,7 @@ public class CommandInterface implements IObserver {
 					ICard currentCard = current.getFacedUpCard();
 					System.out.println(counter + ". " + current.getName() + " : carte face visible : "
 							+ currentCard.getName() + " " + currentCard.getColor());
+					counter++;
 				}
 				if (input.hasNextByte()) {
 					byte next = input.nextByte();
@@ -293,14 +294,43 @@ public class CommandInterface implements IObserver {
 		} else if (event == NotEvent.CATCH_UP_MENU_ERROR) {
 			System.out.println("Le choix du joueur a capturé n'est pas correct veuillez choisir à nouveau");
 			setCatchUpMenu(NotEvent.CATCH_UP_MENU, players, lastObserved);
-		} else if(event == NotEvent.CATCH_UP_MENU_SUCCESS) {
+		} else if (event == NotEvent.CATCH_UP_MENU_SUCCESS) {
 			ICard card = (ICard) args[0];
-			System.out.println("La carte : " + card.getName() + " " + card.getColorValue() + " a correctement été capturé");
+			System.out.println(
+					"La carte : " + card.getName() + " " + card.getColorValue() + " a correctement été capturé");
 		}
 		input.close();
 	}
-	
+
 	private void setFaceUpMenu(NotEvent event, Object[] args, Observable observed) {
-		
+		if (event == NotEvent.FACE_UP_MENU) {
+			boolean choosed = false;
+			Scanner input = new Scanner(System.in);
+			Player current = (Player) args[0];
+			List<ICard> cards = current.getHand();
+
+			while (!choosed) {
+				System.out.println(
+						"Veuillez choisir une de vos cartes à mettre face visible, répondre par le numéro de la carte");
+				int counter = 0;
+				Iterator<ICard> it = cards.iterator();
+				while (it.hasNext()) {
+					ICard card = it.next();
+					System.out.println(counter + ". " + card.getName() + " " + card.getColor());
+				}
+				if (input.hasNextByte()) {
+					byte next = input.nextByte();
+					if (next >= 0 && next <= cards.size() - 1) {
+						System.out.println("L'information est bien prise en compte");
+						Object[] back = { next };
+						observed.notifyBack(NotEvent.FACE_UP_MENU, back);
+						choosed = true;
+					} else {
+						System.out.println("L'entrée est incorrecte");
+					}
+				}
+			}
+			input.close();
+		}
 	}
 }
