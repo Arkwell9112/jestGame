@@ -15,6 +15,18 @@ public class Diamonds extends CouldBeAnAce implements ICard{
 	
 	public Player chooseTrophyOwner(List<Player> players) {
 		Iterator<Player> it= players.iterator();
+		Player highest=null;
+		while(it.hasNext()) {
+			Player current=it.next();
+			if(highest==null) {
+				highest=current;
+			}else if(highest.calculateScore(players)<current.calculateScore(players)){
+				highest=current;
+			
+			}
+		}
+		
+		return highest;
 		
 	}
 	public int getUpdatedGameFaceValue(List<Player> players) {
@@ -24,19 +36,8 @@ public class Diamonds extends CouldBeAnAce implements ICard{
 		return 0;
 	}
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
-		
-
-		
-		Iterator<ICard> it= myPlayer.getCapturedCards().iterator();
-		while(it.hasNext()) {
-			ICard currentCard = it.next();
-			if(currentCard.getColorValue()>=2) {
-				
-				
-			}
-		}
-		
-		
+		return 0;
+			
 	}
 
 }
