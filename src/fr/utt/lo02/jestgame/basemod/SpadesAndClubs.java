@@ -13,21 +13,20 @@ public class SpadesAndClubs extends CouldBeAnAce implements ICard{
 		
 	}
 	
-	public Player chooseTrophyOwner(List<Player> players, Player myPlayer) {
+	public Player chooseTrophyOwner(List<Player> players) {
 		Iterator<Player> it=players.iterator();
-		Iterator<ICard> it2=myPlayer.getCapturedCards().iterator();
-		Player highest=null;
+		
 		Player lowest=null;
 		while(it.hasNext()) {
 			Player current=it.next();
-			ICard currentCard=it2.next();
-			if(currentCard.getColor()=="Spades") {
-				
-				
-				
-				
+			if(lowest==null) {
+				lowest=current;
+			}else if(lowest.calculateScore(players)>current.calculateScore(players)) {
+				lowest=current;
 			}
 		}
+		
+		return lowest;
 		
 	}
 	
@@ -50,10 +49,7 @@ public class SpadesAndClubs extends CouldBeAnAce implements ICard{
 		return 0;
 	}
 	public int endFaceValue(List<Player> players) {
-		Iterator<Player>it=players.iterator();
-		while(it.hasNext()) {
-			
-		}
+		return 0;
 	}
 	
 	
