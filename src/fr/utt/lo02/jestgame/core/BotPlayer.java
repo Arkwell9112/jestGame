@@ -10,7 +10,7 @@ public abstract class BotPlayer extends Player{
 	
 	protected abstract int chooseFaceUp(List<Player> players);
 	
-	protected abstract void chooseCatchUp(List<Player> players);
+	protected abstract Object[] chooseCatchUp(List<Player> players);
 
 	@Override
 	public void yourTurnFaceUp(List<Player> players) {
@@ -22,8 +22,8 @@ public abstract class BotPlayer extends Player{
 
 	@Override
 	public void yourTurnCatchUp(List<Player> players) {
-		
-		
+		Object[] args = chooseCatchUp(players);
+		notifyAll(NotEvent.CATCH_UP_MENU_BOT, args);
 	}
 
 	@Override

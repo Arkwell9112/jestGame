@@ -5,21 +5,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.IMod;
 import fr.utt.lo02.jestgame.api.ModType;
 
 public class CommandInterface implements IObserver {
-	public static void main(String[] args) {
-
-	}
-
 	/**
 	 *
 	 */
+	private List<Player> players;
+	
 	@Override
 	public void update(Observable observed, NotEvent callEvent, Object[] args) {
 		if (callEvent == NotEvent.CREATE_PARTY_MENU) {
 			setCreatePartyMenu((IMod[]) args, observed);
+		} else if (callEvent == NotEvent.CATCH_UP_MENU || callEvent == NotEvent.CATCH_UP_MENU_BOT
+				|| callEvent == NotEvent.CATCH_UP_MENU_ERROR || callEvent == NotEvent.CATCH_UP_MENU_SUCCESS) {
+			setCatchUpMenu(callEvent, args, observed);
 		}
 	}
 
@@ -208,12 +210,13 @@ public class CommandInterface implements IObserver {
 		List<Object> returner = new ArrayList<Object>();
 
 		Iterator<IMod> it2 = choosedPlayers.iterator();
-		
-		// On retourne d'abord les joueurs, puis le nom des joueurs, puis les régles, puis le nombre de joueurs, les cartes et enfin le nombre de joueurs robots
+
+		// On retourne d'abord les joueurs, puis le nom des joueurs, puis les régles,
+		// puis le nombre de joueurs, les cartes et enfin le nombre de joueurs robots
 		while (it2.hasNext()) {
 			returner.add(it2.hasNext());
 		}
-		
+
 		Iterator<String> it3 = playersName.iterator();
 
 		while (it3.hasNext()) {
@@ -222,15 +225,30 @@ public class CommandInterface implements IObserver {
 
 		returner.add(choosedRule);
 		returner.add(nbPlayers);
-		
+
 		it2 = choosedCards.iterator();
 
 		while (it2.hasNext()) {
 			returner.add(it2.next());
 		}
-		
+
 		returner.add(nbBots);
-		
+
 		observed.notifyBack(NotEvent.CREATE_PARTY_MENU, returner.toArray(new Object[returner.size()]));
+	}
+
+	private void setCatchUpMenu(NotEvent event, Object[] args, Observable observed) {
+		Scanner input = new Scanner(System.in);
+		
+		if(event == NotEvent.CATCH_UP_MENU) {
+			boolean choosed = false;
+			while(!choosed) {
+				System.out.println("Veuillez choisir un joueur à capturer, il est possible de vous capturer vous même");
+				for(Object obj : args) {
+					Player current = (Player) obj;
+					ICard currentCard = current.getFacedUpCard();
+				}
+			}
+		}
 	}
 }
