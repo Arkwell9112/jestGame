@@ -102,12 +102,13 @@ public class GameLoader extends Observable {
 	public GameLoader(IMod[] mods) {
 		this.loadedMods = mods;
 		currentInterface = new CommandInterface();
-		currentInterface.update(this, NotEvent.MAIN_MENU, loadedMods);
+		addObserver(currentInterface);
+		notifyAll(NotEvent.CREATE_PARTY_MENU, loadedMods);
 	}
 
 	@Override
 	public void notifyBack(NotEvent backCallEvent, Object[] backArgs) {
-		if (backCallEvent == NotEvent.MAIN_MENU) {
+		if (backCallEvent == NotEvent.CREATE_PARTY_MENU) {
 			List<IMod> players = new ArrayList<IMod>();
 			List<String> names = new ArrayList<String>();
 			IMod rules;

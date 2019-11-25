@@ -7,6 +7,7 @@ public enum NotEvent {
 	FACE_UP_MENU,
 	CATCH_UP_MENU,
 	WIN_MENU,
-	UPDATE_MENU;
+	UPDATE_MENU,
+	END_PARTY_MENU;
 
 }

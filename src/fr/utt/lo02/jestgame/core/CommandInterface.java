@@ -18,7 +18,7 @@ public class CommandInterface implements IObserver {
 	 */
 	@Override
 	public void update(Observable observed, NotEvent callEvent, Object[] args) {
-		if (callEvent == NotEvent.MAIN_MENU) {
+		if (callEvent == NotEvent.CREATE_PARTY_MENU) {
 			setCreatePartyMenu((IMod[]) args, observed);
 		}
 	}
@@ -231,6 +231,6 @@ public class CommandInterface implements IObserver {
 		
 		returner.add(nbBots);
 		
-		observed.notifyBack(NotEvent.MAIN_MENU, returner.toArray(new Object[returner.size()]));
+		observed.notifyBack(NotEvent.CREATE_PARTY_MENU, returner.toArray(new Object[returner.size()]));
 	}
 }
