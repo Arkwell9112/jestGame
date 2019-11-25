@@ -17,6 +17,14 @@ public abstract class Player extends Observable {
 	private boolean isHanded;
 	private int facedUpRank;
 	private Party currentParty;
+	
+	public List<ICard> getCapturedCards() {
+		return capturedCards;
+	}
+
+	public String getName() {
+		return name;
+	}
 
 	public List<ICard> getHand() {
 		return hand;
