@@ -10,10 +10,12 @@ import fr.utt.lo02.jestgame.api.ModType;
 
 public class CommandInterface implements IObserver {
 	public static void main(String[] args) {
-		CommandInterface test = new CommandInterface();
-		test.setCreatePartyMenu(null, null);
+
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public void update(Observable observed, NotEvent callEvent, Object[] args) {
 		if (callEvent == NotEvent.MAIN_MENU) {
@@ -21,6 +23,10 @@ public class CommandInterface implements IObserver {
 		}
 	}
 
+	/**
+	 * @param mods
+	 * @param observed
+	 */
 	private void setCreatePartyMenu(IMod[] mods, Observable observed) {
 		List<IMod> players = new ArrayList<IMod>();
 		List<IMod> rules = new ArrayList<IMod>();
@@ -51,7 +57,7 @@ public class CommandInterface implements IObserver {
 			if (input.hasNextByte()) {
 				byte buffer = input.nextByte();
 				if (buffer > 2 && buffer < 5) {
-					System.out.println("Le nombre de joueurs est bien pris en compte");
+					System.out.println("Les informations sont bien prises en compte");
 					nbPlayers = buffer;
 					tfPlayer = false;
 				} else {
@@ -67,7 +73,7 @@ public class CommandInterface implements IObserver {
 			if (input.hasNextByte()) {
 				byte buffer = input.nextByte();
 				if (nbPlayers - buffer > 0 && buffer > -1) {
-					System.out.println("Le nombre de joueurs robots est bien pris en compte");
+					System.out.println("Les informations sont bien prises en compte");
 					nbBots = buffer;
 					tfBot = false;
 				} else {
@@ -96,10 +102,12 @@ public class CommandInterface implements IObserver {
 						String buffer = input.next();
 						if (buffer == "o" || buffer == "n") {
 							if (buffer == "o") {
+								System.out.println("Les informations sont bien prises en compte");
 								choosedPlayers.add(players.get(counter));
 								choosed = true;
 								tfStrategy = false;
 							} else {
+								System.out.println("Les informations sont bien prises en compte");
 								tfStrategy = false;
 							}
 						} else {
@@ -134,10 +142,12 @@ public class CommandInterface implements IObserver {
 					String buffer = input.next();
 					if (buffer == "o" || buffer == "n") {
 						if (buffer == "o") {
+							System.out.println("Les informations sont bien prises en compte");
 							choosedRule = rules.get(counter);
 							choosed = true;
 							tfRules = false;
 						} else {
+							System.out.println("Les informations sont bien prises en compte");
 							tfRules = false;
 						}
 					} else {
@@ -169,9 +179,11 @@ public class CommandInterface implements IObserver {
 					String buffer = input.next();
 					if (buffer == "o" || buffer == "n") {
 						if (buffer == "o") {
+							System.out.println("Les informations sont bien prises en compte");
 							choosedCards.add(current);
 							tfCard = false;
 						} else {
+							System.out.println("Les informations sont bien prises en compte");
 							tfCard = false;
 						}
 					} else {
@@ -183,36 +195,41 @@ public class CommandInterface implements IObserver {
 			} while (tfCard);
 		}
 
-		for (int i = 0; i <= 0; i++) {
-			if(input.hasNext()) {
+		for (int i = 0; i <= nbPlayers; i++) {
+			if (input.hasNext()) {
+				System.out.println("Veuillez entrer le nom du joueur : " + i);
+				System.out.println("Le nom des joueurs humains en premier svp");
 				playersName.add(input.next());
 			}
 		}
-		
+
 		input.close();
-		
+
 		List<Object> returner = new ArrayList<Object>();
-		
+
 		Iterator<IMod> it2 = choosedPlayers.iterator();
 		
-		while(it2.hasNext()) {
+		// On retourne d'abord les joueurs, puis le nom des joueurs, puis les régles, puis le nombre de joueurs, les cartes et enfin le nombre de joueurs robots
+		while (it2.hasNext()) {
 			returner.add(it2.hasNext());
 		}
 		
+		Iterator<String> it3 = playersName.iterator();
+
+		while (it3.hasNext()) {
+			returner.add(it3.next());
+		}
+
 		returner.add(choosedRule);
+		returner.add(nbPlayers);
+		
 		it2 = choosedCards.iterator();
-			
-		while(it2.hasNext()) {
+
+		while (it2.hasNext()) {
 			returner.add(it2.next());
 		}
 		
-		Iterator<String> it3 = playersName.iterator();
-		
-		while(it3.hasNext()) {
-			returner.add(it3.next());
-		}
-		
-		returner.add(nbPlayers);
+		returner.add(nbBots);
 		
 		observed.notifyBack(NotEvent.MAIN_MENU, returner.toArray(new Object[returner.size()]));
 	}

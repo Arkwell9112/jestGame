@@ -11,18 +11,28 @@ public class Player {
 	private List<ICard> capturedCards = new ArrayList<ICard>();
 	private String name;
 	private int score;
-	private int rank;
 	private boolean isFacedUp;
 	private boolean isCatchedUp;
 	private int facedUpRank;
 	private IObserver interfac;
 	
 	
-	public Player(String name, int rank, IObserver interfac) {
+	public Player(String name, IObserver interfac) {
 		this.name=name;
-		this.rank=rank;
+		this.interfac = interfac;
 		
-		
+	}
+	
+	public void setName(String name) {
+		if(this.name == null) {
+			this.name = name;
+		}
+	}
+	
+	public void setInterface(IObserver interfac) {
+		if(this.interfac == null) {
+			this.interfac = interfac;
+		}
 	}
 	
 	

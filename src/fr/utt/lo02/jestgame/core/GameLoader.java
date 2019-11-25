@@ -13,11 +13,11 @@ import java.util.jar.JarFile;
 import fr.utt.lo02.jestgame.api.IMod;
 
 public class GameLoader extends Observable {
-	
+
 	private Party currentParty;
 	private IObserver currentInterface;
 	private IMod[] loadedMods;
-	
+
 	public static void main(String[] args) {
 		System.out.println("Hello World");
 	}
@@ -98,7 +98,7 @@ public class GameLoader extends Observable {
 		// On retourne enfin un tableau de tous les mods chargés
 		return mods.toArray(new IMod[mods.size()]);
 	}
-	
+
 	public GameLoader(IMod[] mods) {
 		this.loadedMods = mods;
 		currentInterface = new CommandInterface();
@@ -107,11 +107,47 @@ public class GameLoader extends Observable {
 
 	@Override
 	public void notifyBack(NotEvent backCallEvent, Object[] backArgs) {
-		
-		
+		if (backCallEvent == NotEvent.MAIN_MENU) {
+			List<IMod> players = new ArrayList<IMod>();
+			List<String> names = new ArrayList<String>();
+			IMod rules;
+			List<IMod> cards = new ArrayList<IMod>();
+			byte nbBots;
+
+			int count = 0;
+			while ((IMod) backArgs[count] != null) {
+				players.add((IMod) backArgs[count]);
+				count++;
+			}
+
+			while ((String) backArgs[count] != null) {
+				names.add((String) backArgs[count]);
+				count++;
+			}
+
+			rules = (IMod) backArgs[count];
+			count++;
+			count++;
+
+			while ((IMod) backArgs[count] != null) {
+				cards.add((IMod) backArgs[count]);
+				count++;
+			}
+
+			nbBots = (byte) backArgs[count];
+
+			for (int i = 0; i <= nbBots; i++) {
+				players.add(null);
+			}
+			
+			currentParty = new Party(players, cards, rules, currentInterface, names);
+			
+			startGame();
+		}
+
 	}
-	
+
 	public void startGame() {
-		
+		currentParty.beginParty();
 	}
 }
