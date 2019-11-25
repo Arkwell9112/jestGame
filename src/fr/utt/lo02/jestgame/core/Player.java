@@ -1,6 +1,7 @@
 package fr.utt.lo02.jestgame.core;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import fr.utt.lo02.jestgame.api.ICard;
@@ -97,6 +98,18 @@ public abstract class Player extends Observable {
 		else {
 			return null;
 		}
+	}
+	
+	public int calculateScore(List<Player> players) {
+		int sum = 0;
+		Iterator<ICard> it = capturedCards.iterator();
+		while(it.hasNext()) {
+			ICard next = it.next();
+			sum = sum + next.endFaceValue(players) + next.endSpecialFaceValue(players);
+		}
+		
+		score = sum;
+		return score;
 	}
 
 }

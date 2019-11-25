@@ -14,7 +14,6 @@ public class Party extends Observable{
 	private IPartyRules rules;
 	private int faceUpBeginnerRank;
 	private int currentRank;
-	private int catchUpBeginnerRank;
 	private Pot pot;
 	private DrawStream draw;
 
@@ -22,7 +21,6 @@ public class Party extends Observable{
 			List<String> playersName) {
 		addObserver(interfac);
 		currentRank = 0;
-		catchUpBeginnerRank = 0;
 		faceUpBeginnerRank = 0;
 
 		players = new ArrayList<Player>(4);
@@ -79,13 +77,6 @@ public class Party extends Observable{
 
 	private void beginCatchUp() {
 		Player beginner = rules.chooseFirstCatch(players);
-		Iterator<Player> it = players.iterator();
-		int count = 0;
-		while (it.hasNext()) {
-			if (it.next() == beginner) {
-				currentRank = count;
-			}
-		}
 		beginner.yourTurnCatchUp(players);
 
 	}
@@ -103,29 +94,14 @@ public class Party extends Observable{
 	}
 
 	
-	//Méthode bugger à refaire
 	public void endCatchUpTurn(Player player, Player nextPlayer) {
 		currentRank++;
-		if (currentRank > players.size() - 1) {
-			currentRank = 0;
-		}
-		if (currentRank == catchUpBeginnerRank) {
-			if (draw.getRemainingCards() >= players.size()) {
-				faceUpBeginnerRank++;
-				if(faceUpBeginnerRank > players.size() - 1) {
-					faceUpBeginnerRank = 0;
-				}
-				Iterator<Player> it = players.iterator();
-				while(it.hasNext()) {
-					it.next().addHand(draw.getDraft());
-				}
-				currentRank = faceUpBeginnerRank;
-				players.get(currentRank).yourTurnFaceUp(players);
-			} else {
-				endParty();
-			}
+		if(currentRank < players.size()) {
+			nextPlayer.yourTurnCatchUp(players);
+		} else if(draw.getRemainingCards() >= players.size()) {
+			beginFaceUp();
 		} else {
-			players.get(currentRank).yourTurnFaceUp(players);
+			endParty();
 		}
 	}
 
@@ -141,10 +117,18 @@ public class Party extends Observable{
 				cards.clear();
 			}
 			currentRank = faceUpBeginnerRank;
-			players.get(faceUpBeginnerRank).yourTurnFaceUp(players);
+			beginFaceUp();
 		}
 		else {
 			System.out.println("Impossible de continuer, pas suffisemment de cartes pour jouer");
+		}
+	}
+	
+	private void beginFaceUp() {
+		players.get(currentRank).yourTurnFaceUp(players);
+		faceUpBeginnerRank++;
+		if(faceUpBeginnerRank > players.size() -1) {
+			faceUpBeginnerRank = 0;
 		}
 	}
 
