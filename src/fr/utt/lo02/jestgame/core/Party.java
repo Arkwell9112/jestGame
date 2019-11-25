@@ -28,11 +28,14 @@ public class Party extends Observable{
 		while (newPlayers.size() != 0) {
 			byte rand = (byte) (Math.random() * newPlayers.size());
 			if (newPlayers.get(rand) == null) {
-				players.add(new HumanPlayer(playersName.get(rand), interfac));
+				Player neo = new HumanPlayer(playersName.get(rand), interfac);
+				neo.setCurrentParty(this);
+				players.add(neo);
 				newPlayers.remove(rand);
 				playersName.remove(rand);
 			} else {
 				Player newer = (Player) newPlayers.get(rand).getInstance()[0];
+				newer.setCurrentParty(this);
 				players.add(newer);
 				newer.setName(playersName.get(rand));
 				newer.setInterface(interfac);

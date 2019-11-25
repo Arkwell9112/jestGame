@@ -16,6 +16,11 @@ public abstract class Player extends Observable {
 	private boolean isCatchedUp;
 	private boolean isHanded;
 	private int facedUpRank;
+	private Party currentParty;
+
+	public List<ICard> getHand() {
+		return hand;
+	}
 
 	public Player(String name, IObserver interfac) {
 		this.name = name;
@@ -27,6 +32,14 @@ public abstract class Player extends Observable {
 		isCatchedUp = false;
 		isHanded = false;
 		facedUpRank = 0;
+	}
+
+	public Party getCurrentParty() {
+		return currentParty;
+	}
+
+	public void setCurrentParty(Party currentParty) {
+		this.currentParty = currentParty;
 	}
 
 	public void setName(String name) {
@@ -70,16 +83,17 @@ public abstract class Player extends Observable {
 		return isFacedUp;
 	}
 
-	public void setFacedUp(boolean isFacedUp) {
-		this.isFacedUp = isFacedUp;
+	public void setFacedUp(int facedUp) {
+		isFacedUp = true;
+		facedUpRank = facedUp;
 	}
 
 	public boolean isCatchedUp() {
 		return isCatchedUp;
 	}
 
-	public void setCatchedUp(boolean isCatchedUp) {
-		this.isCatchedUp = isCatchedUp;
+	public void setCatchedUp() {
+		isCatchedUp = true;
 	}
 
 	public ICard catchUp(boolean isCatchingFacedUpCard) {
