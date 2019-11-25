@@ -10,6 +10,7 @@ public abstract class BotPlayer extends Player{
 	
 	protected abstract int chooseFaceUp(List<Player> players);
 	
+	//Doit renvoyer 1:Le joueur qui capture 2: Le joueur capturé
 	protected abstract Object[] chooseCatchUp(List<Player> players);
 
 	@Override

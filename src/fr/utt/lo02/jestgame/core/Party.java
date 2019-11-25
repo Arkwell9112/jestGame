@@ -75,6 +75,10 @@ public class Party extends Observable{
 			ICard card = it.next();
 			card.chooseTrophyOwner(players).addCapturedCard(card);
 		}
+		
+		Player winner = rules.chooseWinner(players);
+		Object[] arg = {winner};
+		notifyAll(NotEvent.CURRENT_PLAYER, arg);
 		notifyAll(NotEvent.END_PARTY_MENU, players.toArray(new Object[players.size()]));
 	}
 

@@ -15,6 +15,7 @@ public class CommandInterface implements IObserver {
 	 */
 	private Object[] players;
 	private Observable lastObserved;
+	private Player currentPlayer;
 
 	@Override
 	public void update(Observable observed, NotEvent callEvent, Object[] args) {
@@ -25,6 +26,10 @@ public class CommandInterface implements IObserver {
 			setCatchUpMenu(callEvent, args, observed);
 		} else if (callEvent == NotEvent.FACE_UP_MENU || callEvent == NotEvent.FACE_UP_MENU_BOT) {
 			setFaceUpMenu(callEvent, args, observed);
+		} else if (callEvent == NotEvent.CURRENT_PLAYER) {
+			this.currentPlayer = (Player) args[0];
+		} else if(callEvent == NotEvent.WIN_MENU) {
+			setWinPartyMenu(NotEvent.WIN_MENU, args);
 		}
 	}
 
@@ -248,6 +253,7 @@ public class CommandInterface implements IObserver {
 		if (event == NotEvent.CATCH_UP_MENU) {
 			boolean choosed = false;
 			while (!choosed) {
+				System.out.println("Joueur : " + currentPlayer.getName());
 				System.out.println("Veuillez choisir un joueur à capturer, il est possible de vous capturer vous même");
 				System.out.println("Entrez le chiffre correspondant au joueur que vous souhaitez capturer");
 				int counter = 0;
@@ -310,6 +316,7 @@ public class CommandInterface implements IObserver {
 			List<ICard> cards = current.getHand();
 
 			while (!choosed) {
+				System.out.println("Joueur : " + current.getName());
 				System.out.println(
 						"Veuillez choisir une de vos cartes à mettre face visible, répondre par le numéro de la carte");
 				int counter = 0;
@@ -331,6 +338,24 @@ public class CommandInterface implements IObserver {
 				}
 			}
 			input.close();
+		} else if(event == NotEvent.FACE_UP_MENU_BOT) {
+			Player current = (Player) args[0];
+			ICard choosed = current.getHand().get((int) args[1]);
+			System.out.println("Le joueur : " + current.getName() + " a choisi la carte : " + choosed.getName() + " " + choosed.getColor());
+		}
+	}
+	
+	private void setWinPartyMenu(NotEvent event, Object[] args) {
+		System.out.println("Le joueur gagnant est : " + currentPlayer.getName());
+		System.out.println("Voici tous les scores");
+		List<Player> players = new ArrayList<Player>(4);
+		for(Object obj : args) {
+			Player current = (Player) obj;
+			players.add(current);
+		}
+		
+		for(Player player : players) {
+			System.out.println("Le joueur : " + player.getName() + " a obtenu un score de : " + player.calculateScore(players));
 		}
 	}
 }

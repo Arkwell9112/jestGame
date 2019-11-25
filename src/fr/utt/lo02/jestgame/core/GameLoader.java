@@ -19,7 +19,8 @@ public class GameLoader extends Observable {
 	private IMod[] loadedMods;
 
 	public static void main(String[] args) {
-		System.out.println("Hello World");
+		GameLoader gameLoader = new GameLoader(loadMods());
+		gameLoader.startGame();
 	}
 
 	public static IMod[] loadMods() {
