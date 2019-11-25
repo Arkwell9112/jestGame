@@ -13,8 +13,9 @@ public class CommandInterface implements IObserver {
 	/**
 	 *
 	 */
-	private List<Player> players;
-	
+	private Object[] players;
+	private Observable lastObserved;
+
 	@Override
 	public void update(Observable observed, NotEvent callEvent, Object[] args) {
 		if (callEvent == NotEvent.CREATE_PARTY_MENU) {
@@ -22,6 +23,8 @@ public class CommandInterface implements IObserver {
 		} else if (callEvent == NotEvent.CATCH_UP_MENU || callEvent == NotEvent.CATCH_UP_MENU_BOT
 				|| callEvent == NotEvent.CATCH_UP_MENU_ERROR || callEvent == NotEvent.CATCH_UP_MENU_SUCCESS) {
 			setCatchUpMenu(callEvent, args, observed);
+		} else if(callEvent == NotEvent.FACE_UP_MENU || callEvent == NotEvent.FACE_UP_MENU_BOT) {
+			setFaceUpMenu(callEvent, args, observed);
 		}
 	}
 
@@ -239,16 +242,65 @@ public class CommandInterface implements IObserver {
 
 	private void setCatchUpMenu(NotEvent event, Object[] args, Observable observed) {
 		Scanner input = new Scanner(System.in);
-		
-		if(event == NotEvent.CATCH_UP_MENU) {
+		players = args;
+		lastObserved = observed;
+
+		if (event == NotEvent.CATCH_UP_MENU) {
 			boolean choosed = false;
-			while(!choosed) {
+			while (!choosed) {
 				System.out.println("Veuillez choisir un joueur à capturer, il est possible de vous capturer vous même");
-				for(Object obj : args) {
+				System.out.println("Entrez le chiffre correspondant au joueur que vous souhaitez capturer");
+				int counter = 0;
+				for (Object obj : args) {
 					Player current = (Player) obj;
 					ICard currentCard = current.getFacedUpCard();
+					System.out.println(counter + ". " + current.getName() + " : carte face visible : "
+							+ currentCard.getName() + " " + currentCard.getColor());
 				}
+				if (input.hasNextByte()) {
+					byte next = input.nextByte();
+					if (next >= 0 && next <= args.length - 1) {
+						System.out.println("Votre choix est bien pris en compte");
+						System.out.println(
+								"Voulez vous capturer la carte face visible ou une autre carte, répondre par v/a");
+						if (input.hasNext()) {
+							String nexte = input.next();
+							if (nexte == "v") {
+								System.out.println("Votre chois est bien pris en compte");
+								choosed = true;
+								Object[] back = { next, true };
+								observed.notifyBack(NotEvent.CATCH_UP_MENU, back);
+							} else if (nexte == "a") {
+								System.out.println("Votre choix est bien pris en compte");
+								choosed = true;
+								Object[] back = { next, false };
+								observed.notifyBack(NotEvent.CATCH_UP_MENU, back);
+							} else {
+								System.out.println("L'entrée n'est pas correcte");
+							}
+						}
+					}
+					System.out.println("L'entrée n'est pas correcte");
+				}
+				System.out.println("L'entrée n'est pas correcte");
 			}
+		} else if (event == NotEvent.CATCH_UP_MENU_BOT) {
+			Player theplayer = (Player) args[0];
+			Player thecaptured = (Player) args[1];
+			boolean face = (boolean) args[2];
+			System.out.println("Le joueur : " + theplayer.getName() + " a décidé de capturer le joueur : "
+					+ thecaptured.getName() + " la carte capturé sera de face visible : " + face);
+		} else if (event == NotEvent.CATCH_UP_MENU_ERROR) {
+			System.out.println("Le choix du joueur a capturé n'est pas correct veuillez choisir à nouveau");
+			setCatchUpMenu(NotEvent.CATCH_UP_MENU, players, lastObserved);
+		} else if(event == NotEvent.CATCH_UP_MENU_SUCCESS) {
+			ICard card = (ICard) args[0];
+			System.out.println("La carte : " + card.getName() + " " + card.getColorValue() + " a correctement été capturé");
 		}
+		input.close();
+	}
+	
+	private void setFaceUpMenu(NotEvent event, Object[] args, Observable observed) {
+		
 	}
 }
