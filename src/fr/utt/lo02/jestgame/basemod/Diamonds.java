@@ -5,9 +5,9 @@ import java.util.List;
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.core.Player;
 
-public class SpadesAndClubs extends CouldBeAnAce implements ICard{
+public class Diamonds extends CouldBeAnAce implements ICard{
 
-	public SpadesAndClubs(String name, String color, int colorValue, int baseValue) {
+	public Diamonds(String name, String color, int colorValue, int baseValue) {
 		super(name, color, colorValue, baseValue);
 		
 	}
@@ -24,7 +24,9 @@ public class SpadesAndClubs extends CouldBeAnAce implements ICard{
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
 		return 0;
 	}
-	
-	
 
 }
+
+	
+
+
