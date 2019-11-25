@@ -13,9 +13,18 @@ public class CouldBeAnAce extends Card implements ICard {
 		
 	}
 	
-	protected int getAceValue(List<Player> players) {
+	protected int getAceValue(List<Player> players,Player myPlayer) {
 		
-		return 1;
+		
+		
+		Iterator<ICard> it=myPlayer.getCapturedCards().iterator();
+		while(it.hasNext()) {
+			ICard current=it.next();
+			if(current.getColorValue()==5) {
+				return current.getColorValue();
+			}
+		}
+	
 		
 		
 		
@@ -23,12 +32,32 @@ public class CouldBeAnAce extends Card implements ICard {
 
 	@Override
 	public Player chooseTrophyOwner(List<Player> players) {
-		// TODO Auto-generated method stub
-		return null;
+		Player best=null;
+		Iterator<Player> it=players.iterator();
+		while(it.hasNext()) {
+			Player current=it.next();
+			if(best == null) {
+				best=current;
+			}
+			
+		}
 	}
 	
 	@Override
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
+		int counter=0;
+		Iterator<ICard> it=myPlayer.getCapturedCards().iterator();
+		while(it.hasNext()) {
+			ICard currentCard=it.next();
+			if(currentCard.getColor()=="Ace") {
+				counter ++;
+				
+			}
+		}
+		
+		if(counter==1) {
+			return 5;
+		}
 		return 0;
 	}
 
