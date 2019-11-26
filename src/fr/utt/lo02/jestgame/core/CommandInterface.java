@@ -30,6 +30,15 @@ public class CommandInterface implements IObserver {
 			this.currentPlayer = (Player) args[0];
 		} else if(callEvent == NotEvent.WIN_MENU) {
 			setWinPartyMenu(NotEvent.WIN_MENU, args);
+		} else if(callEvent == NotEvent.SHOW_TROPHY) {
+			Pot pot = (Pot) args[0];
+			System.out.println("Les trophées sont : ");
+			List<ICard> cards = pot.getTrophies();
+			Iterator<ICard> it = cards.iterator();
+			while(it.hasNext()) {
+				ICard card = it.next();
+				System.out.println(card.getName() + " " + card.getColor());
+			}
 		}
 	}
 

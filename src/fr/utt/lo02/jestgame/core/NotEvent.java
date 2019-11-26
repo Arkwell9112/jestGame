@@ -11,6 +11,7 @@ public enum NotEvent {
 	WIN_MENU,
 	UPDATE_MENU,
 	END_PARTY_MENU,
+	SHOW_TROPHY,
 	CURRENT_PLAYER;
 
 }

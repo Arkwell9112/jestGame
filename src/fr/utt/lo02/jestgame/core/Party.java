@@ -8,7 +8,7 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.IMod;
 import fr.utt.lo02.jestgame.api.IPartyRules;
 
-public class Party extends Observable{
+public class Party extends Observable {
 
 	private List<Player> players;
 	private IPartyRules rules;
@@ -61,23 +61,25 @@ public class Party extends Observable{
 
 		List<ICard> trophies = new ArrayList<ICard>();
 
-		for (int i = 0; i <= rules.getTrophyCardNb(); i++) {
+		for (int i = 0; i <= rules.getTrophyCardNb(players.size()); i++) {
 			trophies.add(draw.getDraft());
 		}
 
 		pot = new Pot(trophies);
-
+		
+		Object[] arg = {pot};
+		notifyAll(NotEvent.SHOW_TROPHY, arg);
 	}
 
 	private void endParty() {
 		Iterator<ICard> it = pot.getTrophies().iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			ICard card = it.next();
 			card.chooseTrophyOwner(players).addCapturedCard(card);
 		}
-		
+
 		Player winner = rules.chooseWinner(players);
-		Object[] arg = {winner};
+		Object[] arg = { winner };
 		notifyAll(NotEvent.CURRENT_PLAYER, arg);
 		notifyAll(NotEvent.END_PARTY_MENU, players.toArray(new Object[players.size()]));
 	}
@@ -100,12 +102,11 @@ public class Party extends Observable{
 		}
 	}
 
-	
 	public void endCatchUpTurn(Player player, Player nextPlayer) {
 		currentRank++;
-		if(currentRank < players.size()) {
+		if (currentRank < players.size()) {
 			nextPlayer.yourTurnCatchUp(players);
-		} else if(draw.getRemainingCards() >= players.size()) {
+		} else if (draw.getRemainingCards() >= players.size()) {
 			beginFaceUp();
 		} else {
 			endParty();
@@ -113,7 +114,7 @@ public class Party extends Observable{
 	}
 
 	public void beginParty() {
-		if (draw.getRemainingCards() >= rules.getPlayerCardNb()) {
+		if (draw.getRemainingCards() >= rules.getPlayerCardNb() * players.size()) {
 			List<ICard> cards = new ArrayList<ICard>();
 			Iterator<Player> it = players.iterator();
 			while (it.hasNext()) {
@@ -125,16 +126,15 @@ public class Party extends Observable{
 			}
 			currentRank = faceUpBeginnerRank;
 			beginFaceUp();
-		}
-		else {
+		} else {
 			System.out.println("Impossible de continuer, pas suffisemment de cartes pour jouer");
 		}
 	}
-	
+
 	private void beginFaceUp() {
 		players.get(currentRank).yourTurnFaceUp(players);
 		faceUpBeginnerRank++;
-		if(faceUpBeginnerRank > players.size() -1) {
+		if (faceUpBeginnerRank > players.size() - 1) {
 			faceUpBeginnerRank = 0;
 		}
 	}
@@ -142,7 +142,7 @@ public class Party extends Observable{
 	@Override
 	public void notifyBack(NotEvent backCallEvent, Object[] backArgs) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

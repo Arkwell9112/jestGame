@@ -9,7 +9,7 @@ public interface IPartyRules {
 	public Player chooseFirstCatch(List<Player> players);
 	public Player chooseWinner(List<Player> players);
 	public int getPlayerCardNb();
-	public int getTrophyCardNb();
+	public int getTrophyCardNb(int nbPlayers);
 	
 	
 		
