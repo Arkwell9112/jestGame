@@ -10,7 +10,6 @@ public class Joker extends Card implements ICard {
 
 	public Joker(String name, String color, int colorValue, int baseValue) {
 		super(name, color, colorValue, baseValue);
-
 	}
 
 	public Player chooseTrophyOwner(List<Player> players) {
