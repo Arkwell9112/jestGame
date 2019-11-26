@@ -6,24 +6,14 @@ import java.util.List;
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.core.Player;
 
-public class Joker extends Card implements ICard {
+public class Joker extends Card {
 
-	public Joker(String name, String color, int colorValue, int baseValue) {
-		super(name, color, colorValue, baseValue);
+	public Joker() {
+		super("Joker", "Joker", 0, 0);
 	}
 
 	public Player chooseTrophyOwner(List<Player> players) {
-		Iterator<Player> it = players.iterator();
-		Player best = null;
-		while (it.hasNext()) {
-			Player current = it.next();
-			if (best == null) {
-				best = current;
-			} else if (best.calculateScore(players) < current.calculateScore(players)) {
-				best = current;
-			}
-		}
-		return best;
+		return null;
 	}
 
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
@@ -39,7 +29,7 @@ public class Joker extends Card implements ICard {
 		if (counter == 0) {
 			return 4;
 		}
-		
+
 		return 0;
 	}
 
@@ -48,7 +38,7 @@ public class Joker extends Card implements ICard {
 
 	}
 
-	public int endFaceValue(List<Player> players) {
+	public int endFaceValue(List<Player> players, Player myPlayer) {
 		return 0;
 
 	}

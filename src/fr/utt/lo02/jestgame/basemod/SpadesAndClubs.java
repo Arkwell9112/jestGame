@@ -6,53 +6,45 @@ import java.util.List;
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.core.Player;
 
-public class SpadesAndClubs extends CouldBeAnAce implements ICard{
+public class SpadesAndClubs extends CouldBeAnAce implements ICard {
 
-	public SpadesAndClubs(String name, String color, int colorValue, int baseValue) {
+	private TrophyType type;
+	private int trophyPower;
+	
+	public SpadesAndClubs(String name, String color, int colorValue, int baseValue, TrophyType type, int trophyPower) {
 		super(name, color, colorValue, baseValue);
-		
+		this.type = type;
+		this.trophyPower = trophyPower;
 	}
-	
+
 	public Player chooseTrophyOwner(List<Player> players) {
-		Iterator<Player> it=players.iterator();
-		
-		Player lowest=null;
-		while(it.hasNext()) {
-			Player current=it.next();
-			if(lowest==null) {
-				lowest=current;
-			}else if(lowest.calculateScore(players)>current.calculateScore(players)) {
-				lowest=current;
-			}
-		}
-		
-		return lowest;
-		
+		return null;
 	}
-	
+
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
-		int bonus=0;
-		Iterator<ICard> it= myPlayer.getCapturedCards().iterator();
-		while(it.hasNext()) {
-			ICard currentCard=it.next();
-			ICard afterCard=it.next();
-			if(currentCard.getColor()=="Spades" && afterCard.getColor()=="Clubs") {
-				if(currentCard.getColorValue()==afterCard.getColorValue()) {
-					bonus=currentCard.getColorValue()+afterCard.getColorValue()+2;
-				}
+		Iterator<ICard> it = myPlayer.getCapturedCards().iterator();
+		boolean found = false;
+		while (it.hasNext()) {
+			ICard current = it.next();
+			if ((current.getName() == "Spade" || current.getName() == "Club")
+					&& (current.endFaceValue(players, myPlayer)) == endFaceValue(players, myPlayer)) {
+				found = true;
 			}
 		}
-		
-		return bonus;
+
+		if (found) {
+			return 2;
+		} else {
+			return 0;
+		}
 	}
+
 	public int getUpdatedGameFaceValue(List<Player> players) {
-		return 0;
+		return getBaseValue();
 	}
-	public int endFaceValue(List<Player> players) {
-		return 0;
+
+	public int endFaceValue(List<Player> players, Player myPlayer) {
+		return getAceValue(players, myPlayer);
 	}
-	
-	
-	
 
 }

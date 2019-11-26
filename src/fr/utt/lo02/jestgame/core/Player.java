@@ -127,7 +127,7 @@ public abstract class Player extends Observable {
 		Iterator<ICard> it = capturedCards.iterator();
 		while(it.hasNext()) {
 			ICard next = it.next();
-			sum = sum + next.endFaceValue(players) + next.endSpecialFaceValue(players, this);
+			sum = sum + next.endFaceValue(players, this) + next.endSpecialFaceValue(players, this);
 		}
 		
 		score = sum;

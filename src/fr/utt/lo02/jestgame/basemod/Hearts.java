@@ -8,46 +8,52 @@ import fr.utt.lo02.jestgame.core.Player;
 
 public class Hearts extends CouldBeAnAce {
 
-	public Hearts(String name, String color, int colorValue, int baseValue) {
-		super(name, color, colorValue, baseValue);
-		
+	private TrophyType type;
+	private int trophyPower;
+
+	public Hearts(String name, int baseValue, TrophyType type, int trophyPower) {
+		super(name, "Heart", 10, baseValue);
+		this.type = type;
+		this.trophyPower = trophyPower;
 	}
-	
+
 	public Player chooseTrophyOwner(List<Player> players) {
-		Iterator <Player> it= players.iterator();
-		Player withJoker=null;
-		while(it.hasNext()) {
-			Player current= it.next();
-			if(withJoker==null) {
-				withJoker=current;
+		return null;
+	}
+
+	public int endFaceValue(List<Player> players, Player myPlayer) {
+		Iterator<ICard> it = myPlayer.getCapturedCards().iterator();
+		boolean jok = false;
+		while (it.hasNext()) {
+			if (it.next().getName() == "Joker") {
+				jok = true;
 			}
 		}
-		return withJoker;
+
+		if (jok) {
+			it = myPlayer.getCapturedCards().iterator();
+			int counter = 0;
+			while (it.hasNext()) {
+				if (it.next().getColor() == "Heart") {
+					counter++;
+				}
+			}
+			if (counter <= 3) {
+				return -getAceValue(players, myPlayer);
+			} else {
+				return getAceValue(players, myPlayer);
+			}
+		} else {
+			return 0;
+		}
 	}
-	
-	public int endFaceValue(List<Player> players) {
-		return 0;
-	}
+
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
-		int counter=0;
-		Iterator<ICard> it= myPlayer.getCapturedCards().iterator();
-		while(it.hasNext()) {
-			ICard currentCard = it.next();
-			if(currentCard.getColor()=="Heart") {
-				counter++;
-			}
-			
-			if(counter == 0 && currentCard.getColor()=="Joker") {
-				return 4;
-			}
-		}
-		
 		return 0;
 	}
-	
+
 	public int getUpdatedGameFaceValue(List<Player> players) {
-		return 0;
+		return getBaseValue();
 	}
-	
 
 }
