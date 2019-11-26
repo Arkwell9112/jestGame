@@ -9,15 +9,17 @@ import fr.utt.lo02.jestgame.core.Player;
 
 public class SpadesAndClubs extends CouldBeAnAce implements ICard {
 
-	private TrophyType type;
+	private TrophyType myType;
+	private Object trophyArg;
 	
-	public SpadesAndClubs(String name, String color, int colorValue, int baseValue, TrophyType type) {
+	public SpadesAndClubs(String name, String color, int colorValue, int baseValue, TrophyType type, Object trophyArg) {
 		super(name, color, colorValue, baseValue);
-		this.type = type;
+		this.myType = type;
+		this.trophyArg = trophyArg;
 	}
 
 	public Player chooseTrophyOwner(List<Player> players) {
-		return null;
+		return myType.getChooser().delegateTrophyChoose(players, this, trophyArg);
 	}
 
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {

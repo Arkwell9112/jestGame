@@ -9,7 +9,8 @@ import fr.utt.lo02.jestgame.core.Player;
 public class Lowest implements ITrophyChooser{
 
 	@Override
-	public Player delegateTrophyChoose(List<Player> players, ICard card) {
+	public Player delegateTrophyChoose(List<Player> players, ICard card, Object trophyArg) {
+		String arg = (String) trophyArg;
 		Iterator<Player> it = players.iterator();
 		Player lower = null;
 		double lowerValue = Double.POSITIVE_INFINITY;
@@ -20,7 +21,7 @@ public class Lowest implements ITrophyChooser{
 			while (it2.hasNext()) {
 				ICard currentCard = it2.next();
 				if (Math.abs(currentCard.endFaceValue(players, current)) < currentValue
-						&& currentCard.getColor() == card.getColor()) {
+						&& currentCard.getColor() == arg) {
 					currentValue = Math.abs(currentCard.endFaceValue(players, current));
 				}
 			}

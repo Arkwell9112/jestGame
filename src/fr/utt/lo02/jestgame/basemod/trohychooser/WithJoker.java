@@ -9,7 +9,7 @@ import fr.utt.lo02.jestgame.core.Player;
 public class WithJoker implements ITrophyChooser{
 
 	@Override
-	public Player delegateTrophyChoose(List<Player> players, ICard card) {
+	public Player delegateTrophyChoose(List<Player> players, ICard card, Object trophyArg) {
 		Iterator<Player> it = players.iterator();
 		while(it.hasNext()) {
 			Player current = it.next();

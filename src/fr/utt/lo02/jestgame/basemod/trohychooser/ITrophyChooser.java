@@ -6,5 +6,5 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.core.Player;
 
 public interface ITrophyChooser {
-	public Player delegateTrophyChoose(List<Player> players, ICard card);
+	public Player delegateTrophyChoose(List<Player> players, ICard card, Object trophyArg);
 }

@@ -9,15 +9,17 @@ import fr.utt.lo02.jestgame.core.Player;
 
 public class Hearts extends CouldBeAnAce {
 
-	private TrophyType type;
+	private TrophyType myType;
+	private Object trophyArg;
 
-	public Hearts(String name, int baseValue, TrophyType type) {
+	public Hearts(String name, int baseValue, TrophyType type, Object trophyArg) {
 		super(name, "Heart", 10, baseValue);
-		this.type = type;
+		this.myType = type;
+		this.trophyArg = trophyArg;
 	}
 
 	public Player chooseTrophyOwner(List<Player> players) {
-		return null;
+		return myType.getChooser().delegateTrophyChoose(players, this, trophyArg);
 	}
 
 	public int endFaceValue(List<Player> players, Player myPlayer) {
