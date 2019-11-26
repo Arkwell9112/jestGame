@@ -365,6 +365,12 @@ public class CommandInterface implements IObserver {
 		
 		for(Player player : players) {
 			System.out.println("Le joueur : " + player.getName() + " a obtenu un score de : " + player.calculateScore(players));
+			System.out.println("Avec les cartes capturés finales suivantes : ");
+			Iterator<ICard> it = player.getCapturedCards().iterator();
+			while(it.hasNext()) {
+				ICard current = it.next();
+				System.out.println(current.getName() + " " + current.getColor());
+			}
 		}
 	}
 }

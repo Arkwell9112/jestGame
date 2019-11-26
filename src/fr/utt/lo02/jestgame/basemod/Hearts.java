@@ -4,17 +4,16 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.utt.lo02.jestgame.api.ICard;
+import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 import fr.utt.lo02.jestgame.core.Player;
 
 public class Hearts extends CouldBeAnAce {
 
 	private TrophyType type;
-	private int trophyPower;
 
-	public Hearts(String name, int baseValue, TrophyType type, int trophyPower) {
+	public Hearts(String name, int baseValue, TrophyType type) {
 		super(name, "Heart", 10, baseValue);
 		this.type = type;
-		this.trophyPower = trophyPower;
 	}
 
 	public Player chooseTrophyOwner(List<Player> players) {

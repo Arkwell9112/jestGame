@@ -4,17 +4,16 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.utt.lo02.jestgame.api.ICard;
+import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 import fr.utt.lo02.jestgame.core.Player;
 
 public class SpadesAndClubs extends CouldBeAnAce implements ICard {
 
 	private TrophyType type;
-	private int trophyPower;
 	
-	public SpadesAndClubs(String name, String color, int colorValue, int baseValue, TrophyType type, int trophyPower) {
+	public SpadesAndClubs(String name, String color, int colorValue, int baseValue, TrophyType type) {
 		super(name, color, colorValue, baseValue);
 		this.type = type;
-		this.trophyPower = trophyPower;
 	}
 
 	public Player chooseTrophyOwner(List<Player> players) {

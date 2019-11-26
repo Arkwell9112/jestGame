@@ -75,7 +75,9 @@ public class Party extends Observable {
 		Iterator<ICard> it = pot.getTrophies().iterator();
 		while (it.hasNext()) {
 			ICard card = it.next();
-			card.chooseTrophyOwner(players).addCapturedCard(card);
+			if(card.chooseTrophyOwner(players) != null) {
+				card.chooseTrophyOwner(players).addCapturedCard(card);
+			}
 		}
 
 		Player winner = rules.chooseWinner(players);
