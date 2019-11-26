@@ -25,6 +25,7 @@ public abstract class BotPlayer extends Player{
 	public void yourTurnCatchUp(List<Player> players) {
 		Object[] args = chooseCatchUp(players);
 		notifyAll(NotEvent.CATCH_UP_MENU_BOT, args);
+		getCurrentParty().endCatchUpTurn(this, (Player) args[1]);
 	}
 
 	@Override

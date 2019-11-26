@@ -119,7 +119,6 @@ public class CommandInterface implements IObserver {
 				do {
 					if (input.hasNextByte()) {
 						byte buffer = input.nextByte();
-						System.out.println(buffer);
 						if (buffer == 1 || buffer == 0) {
 							if (buffer == 1) {
 								System.out.println("Les informations sont bien prises en compte");
@@ -320,39 +319,33 @@ public class CommandInterface implements IObserver {
 	}
 
 	private void setFaceUpMenu(NotEvent event, Object[] args, Observable observed) {
+		Scanner input = new Scanner(System.in);
 		if (event == NotEvent.FACE_UP_MENU) {
-			boolean choosed = false;
-			Scanner input = new Scanner(System.in);
 			Player current = (Player) args[0];
-
-			while (!choosed) {
-				System.out.println("Joueur : " + current.getName());
-				System.out.println(
-						"Veuillez choisir une de vos cartes à mettre face visible, répondre par le numéro de la carte");
-				int counter = 0;
-				Iterator<ICard> it = current.getHand().iterator();
-				while (it.hasNext()) {
-					ICard card = it.next();
-					System.out.println(counter + ". " + card.getName() + " " + card.getColor());
-					counter++;
-				}
-				boolean tf = false;
-				do {
-					if (input.hasNextByte()) {
-						byte next = input.nextByte();
-						if (next >= 0 && next <= current.getHand().size() - 1) {
-							System.out.println("L'information est bien prise en compte");
-							Object[] back = { next };
-							observed.notifyBack(NotEvent.FACE_UP_MENU, back);
-							choosed = true;
-							tf = true;
-						} else {
-							System.out.println("L'entrée est incorrecte");
-						}
-					}
-				} while (!tf);
+			System.out.println("Joueur : " + current.getName());
+			System.out.println(
+					"Veuillez choisir une de vos cartes à mettre face visible, répondre par le numéro de la carte");
+			int counter = 0;
+			Iterator<ICard> it = current.getHand().iterator();
+			while (it.hasNext()) {
+				ICard card = it.next();
+				System.out.println(counter + ". " + card.getName() + " " + card.getColor());
+				counter++;
 			}
-			input.close();
+			boolean tf = true;
+			do {
+				// Test
+				byte next = 0;
+
+				if (next >= 0 && next <= current.getHand().size() - 1) {
+					System.out.println("L'information est bien prise en compte");
+					Object[] back = { next };
+					observed.notifyBack(NotEvent.FACE_UP_MENU, back);
+					tf = false;
+				} else {
+					System.out.println("L'entrée est incorrecte");
+				}
+			} while (tf);
 		} else if (event == NotEvent.FACE_UP_MENU_BOT) {
 			Player current = (Player) args[0];
 			int choosedRank = (int) args[1];
@@ -361,6 +354,7 @@ public class CommandInterface implements IObserver {
 					+ choosed.getColor());
 			current.notifyBack(NotEvent.FACE_UP_MENU_BOT, null);
 		}
+		input.close();
 	}
 
 	private void setWinPartyMenu(NotEvent event, Object[] args) {

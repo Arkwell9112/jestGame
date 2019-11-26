@@ -12,7 +12,7 @@ public class HumanPlayer extends Player {
 
 	public void notifyBack(NotEvent event, Object[] args) {
 		if (event == NotEvent.FACE_UP_MENU) {
-			setFacedUp((int) args[0]);
+			setFacedUp((byte) args[0]);
 			getCurrentParty().endFaceUpTurn(this);
 		} else if (event == NotEvent.CATCH_UP_MENU) {
 			Player current = (Player) args[0];

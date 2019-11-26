@@ -114,7 +114,6 @@ public class GameLoader extends Observable {
 			List<String> names = new ArrayList<String>();
 			IMod rules;
 			List<IMod> cards = new ArrayList<IMod>();
-			byte nbBots;
 
 			int count = 0;
 			while (IMod.class.isAssignableFrom(backArgs[count].getClass())) {
@@ -135,8 +134,6 @@ public class GameLoader extends Observable {
 				cards.add((IMod) backArgs[count]);
 				count++;
 			}
-
-			nbBots = (byte) backArgs[count];
 
 			while(players.size() != names.size()) {
 				players.add(null);
