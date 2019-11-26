@@ -12,7 +12,6 @@ public class Party extends Observable {
 
 	private List<Player> players;
 	private IPartyRules rules;
-	private int faceUpBeginnerRank;
 	private int currentRank;
 	private Pot pot;
 	private DrawStream draw;
@@ -21,7 +20,6 @@ public class Party extends Observable {
 			List<String> playersName) {
 		addObserver(interfac);
 		currentRank = 0;
-		faceUpBeginnerRank = 0;
 
 		players = new ArrayList<Player>(4);
 
@@ -52,8 +50,10 @@ public class Party extends Observable {
 
 		while (it.hasNext()) {
 			IMod next = it.next();
-			for (ICard card : (ICard[]) next.getInstance()) {
-				cards.add(card);
+			Object[] instances = next.getInstance();
+			for(Object obj : instances) {
+				ICard current = (ICard) obj;
+				cards.add(current);
 			}
 		}
 
@@ -61,7 +61,7 @@ public class Party extends Observable {
 
 		List<ICard> trophies = new ArrayList<ICard>();
 
-		for (int i = 0; i <= rules.getTrophyCardNb(players.size()); i++) {
+		for (int i = 1; i <= rules.getTrophyCardNb(players.size()); i++) {
 			trophies.add(draw.getDraft());
 		}
 
@@ -87,6 +87,7 @@ public class Party extends Observable {
 	}
 
 	private void beginCatchUp() {
+		currentRank = 0;
 		Player beginner = rules.chooseFirstCatch(players);
 		beginner.yourTurnCatchUp(players);
 
@@ -94,10 +95,11 @@ public class Party extends Observable {
 
 	public void endFaceUpTurn(Player player) {
 		currentRank++;
+		System.out.println("end" + currentRank);
 		if (currentRank > players.size() - 1) {
 			currentRank = 0;
 		}
-		if (currentRank == faceUpBeginnerRank) {
+		if (currentRank == 0) {
 			beginCatchUp();
 		} else {
 			players.get(currentRank).yourTurnFaceUp(players);
@@ -120,25 +122,25 @@ public class Party extends Observable {
 			List<ICard> cards = new ArrayList<ICard>();
 			Iterator<Player> it = players.iterator();
 			while (it.hasNext()) {
-				for (int i = 0; i <= rules.getPlayerCardNb(); i++) {
+				for (int i = 1; i <= rules.getPlayerCardNb(); i++) {
 					cards.add(draw.getDraft());
 				}
-				it.next().setHand(cards);
+				Player pl = it.next();
+				List<ICard> handy = new ArrayList<ICard>();
+				handy.addAll(cards);
+				pl.setHand(handy);
 				cards.clear();
 			}
-			currentRank = faceUpBeginnerRank;
 			beginFaceUp();
 		} else {
 			System.out.println("Impossible de continuer, pas suffisemment de cartes pour jouer");
 		}
 	}
 
+	//penser à redistribuer cartes
 	private void beginFaceUp() {
+		currentRank = 0;
 		players.get(currentRank).yourTurnFaceUp(players);
-		faceUpBeginnerRank++;
-		if (faceUpBeginnerRank > players.size() - 1) {
-			faceUpBeginnerRank = 0;
-		}
 	}
 
 	@Override

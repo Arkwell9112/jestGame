@@ -29,7 +29,9 @@ public abstract class BotPlayer extends Player{
 
 	@Override
 	public void notifyBack(NotEvent backCallEvent, Object[] backArgs) {
-		// TODO Auto-generated method stub
+		if(backCallEvent == NotEvent.FACE_UP_MENU_BOT) {
+			getCurrentParty().endFaceUpTurn(this);
+		}
 		
 	}
 }

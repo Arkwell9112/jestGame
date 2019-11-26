@@ -8,8 +8,8 @@ import fr.utt.lo02.jestgame.api.ICard;
 
 public abstract class Player extends Observable {
 
-	private List<ICard> hand = new ArrayList<ICard>();
-	private List<ICard> capturedCards = new ArrayList<ICard>();
+	private List<ICard> hand;
+	private List<ICard> capturedCards;
 	private String name;
 	private int score;
 	private boolean isFacedUp;
@@ -40,6 +40,8 @@ public abstract class Player extends Observable {
 		isCatchedUp = false;
 		isHanded = false;
 		facedUpRank = 0;
+		hand = new ArrayList<ICard>();
+		capturedCards = new ArrayList<ICard>();
 	}
 
 	public Party getCurrentParty() {

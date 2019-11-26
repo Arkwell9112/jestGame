@@ -30,7 +30,7 @@ public class GameLoader extends Observable {
 
 		// Récupération de tous les fichiers contenus dans mods en triant par leur
 		// extension, uniquement les .jar sont conservés
-		File[] files = new File("mods").listFiles(new ModFilter());
+		File[] files = new File("C:\\Users\\Edouard\\Documents\\Projet_LO02\\mods").listFiles(new ModFilter());
 
 		// Récupération du nom de la classe principale dans chaques fichiers .jar
 		for (File file : files) {
@@ -117,12 +117,12 @@ public class GameLoader extends Observable {
 			byte nbBots;
 
 			int count = 0;
-			while ((IMod) backArgs[count] != null) {
+			while (IMod.class.isAssignableFrom(backArgs[count].getClass())) {
 				players.add((IMod) backArgs[count]);
 				count++;
 			}
 
-			while ((String) backArgs[count] != null) {
+			while (String.class.isAssignableFrom(backArgs[count].getClass())) {
 				names.add((String) backArgs[count]);
 				count++;
 			}
@@ -131,14 +131,14 @@ public class GameLoader extends Observable {
 			count++;
 			count++;
 
-			while ((IMod) backArgs[count] != null) {
+			while (IMod.class.isAssignableFrom(backArgs[count].getClass())) {
 				cards.add((IMod) backArgs[count]);
 				count++;
 			}
 
 			nbBots = (byte) backArgs[count];
 
-			for (int i = 0; i <= nbBots; i++) {
+			while(players.size() != names.size()) {
 				players.add(null);
 			}
 			

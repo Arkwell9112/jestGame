@@ -28,14 +28,14 @@ public class CommandInterface implements IObserver {
 			setFaceUpMenu(callEvent, args, observed);
 		} else if (callEvent == NotEvent.CURRENT_PLAYER) {
 			this.currentPlayer = (Player) args[0];
-		} else if(callEvent == NotEvent.WIN_MENU) {
+		} else if (callEvent == NotEvent.WIN_MENU) {
 			setWinPartyMenu(NotEvent.WIN_MENU, args);
-		} else if(callEvent == NotEvent.SHOW_TROPHY) {
+		} else if (callEvent == NotEvent.SHOW_TROPHY) {
 			Pot pot = (Pot) args[0];
 			System.out.println("Les trophées sont : ");
 			List<ICard> cards = pot.getTrophies();
 			Iterator<ICard> it = cards.iterator();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				ICard card = it.next();
 				System.out.println(card.getName() + " " + card.getColor());
 			}
@@ -103,10 +103,10 @@ public class CommandInterface implements IObserver {
 			}
 		} while (tfBot);
 
-		byte count = 1;
+		byte count = 0;
 
-		while (count == nbBots && nbBots != 0) {
-			System.out.println("Veuillez choisir une IA pour le robot " + count + " , répondre par o/n");
+		while (count < nbBots && nbBots != 0) {
+			System.out.println("Veuillez choisir une IA pour le robot " + count + ", répondre par 1/0");
 
 			boolean choosed = false;
 			byte counter = 0;
@@ -117,15 +117,16 @@ public class CommandInterface implements IObserver {
 				boolean tfStrategy = true;
 
 				do {
-					if (input.hasNext()) {
-						String buffer = input.next();
-						if (buffer == "o" || buffer == "n") {
-							if (buffer == "o") {
+					if (input.hasNextByte()) {
+						byte buffer = input.nextByte();
+						System.out.println(buffer);
+						if (buffer == 1 || buffer == 0) {
+							if (buffer == 1) {
 								System.out.println("Les informations sont bien prises en compte");
 								choosedPlayers.add(players.get(counter));
 								choosed = true;
 								tfStrategy = false;
-							} else {
+							} else if (buffer == 0) {
 								System.out.println("Les informations sont bien prises en compte");
 								tfStrategy = false;
 							}
@@ -151,16 +152,17 @@ public class CommandInterface implements IObserver {
 		byte counter = 0;
 
 		while (choosed == false) {
+			System.out.println("Veuillez choisir un IA mode de régle, répondre par 1/0");
 			System.out.println(rules.get(counter).getName());
 			System.out.println(rules.get(counter).getDescription());
 
 			boolean tfRules = true;
 
 			do {
-				if (input.hasNext()) {
-					String buffer = input.next();
-					if (buffer == "o" || buffer == "n") {
-						if (buffer == "o") {
+				if (input.hasNextByte()) {
+					byte buffer = input.nextByte();
+					if (buffer == 1 || buffer == 0) {
+						if (buffer == 1) {
 							System.out.println("Les informations sont bien prises en compte");
 							choosedRule = rules.get(counter);
 							choosed = true;
@@ -191,13 +193,13 @@ public class CommandInterface implements IObserver {
 			IMod current = it.next();
 
 			do {
-				System.out.println("Veuillez entrer o/n pour le choix des mods de carte");
+				System.out.println("Veuillez entrer 1/0 pour le choix des mods de carte");
 				System.out.println(current.getName());
 				System.out.println(current.getDescription());
-				if (input.hasNext()) {
-					String buffer = input.next();
-					if (buffer == "o" || buffer == "n") {
-						if (buffer == "o") {
+				if (input.hasNextByte()) {
+					byte buffer = input.nextByte();
+					if (buffer == 1 || buffer == 0) {
+						if (buffer == 1) {
 							System.out.println("Les informations sont bien prises en compte");
 							choosedCards.add(current);
 							tfCard = false;
@@ -214,10 +216,10 @@ public class CommandInterface implements IObserver {
 			} while (tfCard);
 		}
 
-		for (int i = 0; i <= nbPlayers; i++) {
+		for (int i = 0; i <= nbPlayers - 1; i++) {
+			System.out.println("Veuillez entrer le nom du joueur : " + i);
+			System.out.println("Le nom des joueurs humains en dernier svp");
 			if (input.hasNext()) {
-				System.out.println("Veuillez entrer le nom du joueur : " + i);
-				System.out.println("Le nom des joueurs humains en premier svp");
 				playersName.add(input.next());
 			}
 		}
@@ -231,7 +233,7 @@ public class CommandInterface implements IObserver {
 		// On retourne d'abord les joueurs, puis le nom des joueurs, puis les régles,
 		// puis le nombre de joueurs, les cartes et enfin le nombre de joueurs robots
 		while (it2.hasNext()) {
-			returner.add(it2.hasNext());
+			returner.add(it2.next());
 		}
 
 		Iterator<String> it3 = playersName.iterator();
@@ -278,15 +280,15 @@ public class CommandInterface implements IObserver {
 					if (next >= 0 && next <= args.length - 1) {
 						System.out.println("Votre choix est bien pris en compte");
 						System.out.println(
-								"Voulez vous capturer la carte face visible ou une autre carte, répondre par v/a");
-						if (input.hasNext()) {
-							String nexte = input.next();
-							if (nexte == "v") {
-								System.out.println("Votre chois est bien pris en compte");
+								"Voulez vous capturer la carte face visible ou une autre carte, répondre par 1/0");
+						if (input.hasNextByte()) {
+							byte nexte = input.nextByte();
+							if (nexte == 1) {
+								System.out.println("Votre choix est bien pris en compte");
 								choosed = true;
 								Object[] back = { next, true };
 								observed.notifyBack(NotEvent.CATCH_UP_MENU, back);
-							} else if (nexte == "a") {
+							} else if (nexte == 0) {
 								System.out.println("Votre choix est bien pris en compte");
 								choosed = true;
 								Object[] back = { next, false };
@@ -322,52 +324,60 @@ public class CommandInterface implements IObserver {
 			boolean choosed = false;
 			Scanner input = new Scanner(System.in);
 			Player current = (Player) args[0];
-			List<ICard> cards = current.getHand();
 
 			while (!choosed) {
 				System.out.println("Joueur : " + current.getName());
 				System.out.println(
 						"Veuillez choisir une de vos cartes à mettre face visible, répondre par le numéro de la carte");
 				int counter = 0;
-				Iterator<ICard> it = cards.iterator();
+				Iterator<ICard> it = current.getHand().iterator();
 				while (it.hasNext()) {
 					ICard card = it.next();
 					System.out.println(counter + ". " + card.getName() + " " + card.getColor());
+					counter++;
 				}
-				if (input.hasNextByte()) {
-					byte next = input.nextByte();
-					if (next >= 0 && next <= cards.size() - 1) {
-						System.out.println("L'information est bien prise en compte");
-						Object[] back = { next };
-						observed.notifyBack(NotEvent.FACE_UP_MENU, back);
-						choosed = true;
-					} else {
-						System.out.println("L'entrée est incorrecte");
+				boolean tf = false;
+				do {
+					if (input.hasNextByte()) {
+						byte next = input.nextByte();
+						if (next >= 0 && next <= current.getHand().size() - 1) {
+							System.out.println("L'information est bien prise en compte");
+							Object[] back = { next };
+							observed.notifyBack(NotEvent.FACE_UP_MENU, back);
+							choosed = true;
+							tf = true;
+						} else {
+							System.out.println("L'entrée est incorrecte");
+						}
 					}
-				}
+				} while (!tf);
 			}
 			input.close();
-		} else if(event == NotEvent.FACE_UP_MENU_BOT) {
+		} else if (event == NotEvent.FACE_UP_MENU_BOT) {
 			Player current = (Player) args[0];
-			ICard choosed = current.getHand().get((int) args[1]);
-			System.out.println("Le joueur : " + current.getName() + " a choisi la carte : " + choosed.getName() + " " + choosed.getColor());
+			int choosedRank = (int) args[1];
+			ICard choosed = current.getHand().get(choosedRank);
+			System.out.println("Le joueur : " + current.getName() + " a choisi la carte : " + choosed.getName() + " "
+					+ choosed.getColor());
+			current.notifyBack(NotEvent.FACE_UP_MENU_BOT, null);
 		}
 	}
-	
+
 	private void setWinPartyMenu(NotEvent event, Object[] args) {
 		System.out.println("Le joueur gagnant est : " + currentPlayer.getName());
 		System.out.println("Voici tous les scores");
 		List<Player> players = new ArrayList<Player>(4);
-		for(Object obj : args) {
+		for (Object obj : args) {
 			Player current = (Player) obj;
 			players.add(current);
 		}
-		
-		for(Player player : players) {
-			System.out.println("Le joueur : " + player.getName() + " a obtenu un score de : " + player.calculateScore(players));
+
+		for (Player player : players) {
+			System.out.println(
+					"Le joueur : " + player.getName() + " a obtenu un score de : " + player.calculateScore(players));
 			System.out.println("Avec les cartes capturés finales suivantes : ");
 			Iterator<ICard> it = player.getCapturedCards().iterator();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				ICard current = it.next();
 				System.out.println(current.getName() + " " + current.getColor());
 			}

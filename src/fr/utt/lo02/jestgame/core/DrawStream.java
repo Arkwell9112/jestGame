@@ -1,5 +1,6 @@
 package fr.utt.lo02.jestgame.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.utt.lo02.jestgame.api.ICard;
@@ -8,6 +9,8 @@ public class DrawStream {
 	private List<ICard> draft;
 	
 	public DrawStream(List<ICard> cards) {
+		draft = new ArrayList<ICard>(100);
+		
 		while(cards.size() != 0) {
 			byte rand = (byte) (Math.random()*cards.size());
 			draft.add(cards.get(rand));
