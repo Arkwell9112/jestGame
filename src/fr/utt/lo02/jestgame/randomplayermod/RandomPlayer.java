@@ -1,5 +1,6 @@
 package fr.utt.lo02.jestgame.randomplayermod;
 
+import java.util.Iterator;
 import java.util.List;
 
 import fr.utt.lo02.jestgame.core.BotPlayer;
@@ -20,6 +21,18 @@ public class RandomPlayer extends BotPlayer {
 	@Override
 	protected Object[] chooseCatchUp(List<Player> players) {
 		int choosed = (int) (Math.random() * players.size());
+		boolean lastOne = false;
+		int counter = 0;
+		Iterator<Player> it = players.iterator();
+		while(it.hasNext()) {
+			Player current = it.next();
+			if(current.isCatchedUp()) {
+				counter++;
+			}
+		}
+		if(counter == players.size() - 1) {
+			lastOne = true;
+		}
 		while (true) {
 			if (!players.get(choosed).isCatchedUp() && players.get(choosed) != this) {
 				boolean tf = false;
@@ -29,8 +42,17 @@ public class RandomPlayer extends BotPlayer {
 				Object[] arg = { this, players.get(choosed), tf};
 				return arg;
 			} else {
+				if(lastOne) {
+					int rand = (int) Math.random() * 2;
+					boolean tf = true;
+					if(rand == 0) {
+						tf = false;
+					}
+					Object[] arg = {this, this, tf};
+					return arg;
+				}
 				choosed++;
-				if (choosed > players.size()) {
+				if (choosed == players.size()) {
 					choosed = 0;
 				}
 			}

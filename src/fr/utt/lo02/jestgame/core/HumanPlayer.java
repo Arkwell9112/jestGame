@@ -38,6 +38,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void yourTurnCatchUp(List<Player> players) {
+		setHasCatchedUp();
 		Object[] arg = {this};
 		super.notifyAll(NotEvent.CURRENT_PLAYER, arg);
 		super.notifyAll(NotEvent.CATCH_UP_MENU, players.toArray(new Object[players.size()]));

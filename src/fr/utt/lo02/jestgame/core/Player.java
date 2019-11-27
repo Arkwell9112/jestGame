@@ -17,6 +17,19 @@ public abstract class Player extends Observable {
 	private boolean isHanded;
 	private int facedUpRank;
 	private Party currentParty;
+	private boolean hasCatchedUp;
+	
+	public void resetHasCatchedUp() {
+		hasCatchedUp = false;
+	}
+	
+	public void setHasCatchedUp() {
+		hasCatchedUp = true;
+	}
+	
+	public boolean isHasCatchedUp() {
+		return hasCatchedUp;
+	}
 	
 	public List<ICard> getCapturedCards() {
 		return capturedCards;
@@ -42,6 +55,7 @@ public abstract class Player extends Observable {
 		facedUpRank = 0;
 		hand = new ArrayList<ICard>();
 		capturedCards = new ArrayList<ICard>();
+		hasCatchedUp = false;
 	}
 
 	public Party getCurrentParty() {

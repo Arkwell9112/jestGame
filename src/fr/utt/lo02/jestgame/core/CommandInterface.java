@@ -264,7 +264,7 @@ public class CommandInterface implements IObserver {
 		if (event == NotEvent.CATCH_UP_MENU) {
 			boolean choosed = false;
 			List<Player> playersList = new ArrayList<Player>(4);
-			for(Object obj : args) {
+			for (Object obj : args) {
 				playersList.add((Player) obj);
 			}
 			int pos = findYou(playersList, currentPlayer);
@@ -278,8 +278,10 @@ public class CommandInterface implements IObserver {
 				for (Object obj : args) {
 					Player current = (Player) obj;
 					ICard currentCard = current.getFacedUpCard();
-					System.out.println(counter + ". " + current.getName() + " : carte face visible : "
-							+ currentCard.getName() + " " + currentCard.getColor());
+					if (currentCard != null) {
+						System.out.println(counter + ". " + current.getName() + " : carte face visible : "
+								+ currentCard.getName() + " " + currentCard.getColor());
+					}
 					counter++;
 				}
 				if (input.hasNextByte()) {
@@ -298,7 +300,7 @@ public class CommandInterface implements IObserver {
 							} else if (nexte == 0) {
 								System.out.println("Votre choix est bien pris en compte");
 								choosed = true;
-								Object[] back = { next, false };
+								Object[] back = { playersList.get(next), false };
 								observed.notifyBack(NotEvent.CATCH_UP_MENU, back);
 							} else {
 								System.out.println("L'entrée n'est pas correcte");
@@ -397,7 +399,7 @@ public class CommandInterface implements IObserver {
 	private boolean everyChoosed(List<Player> findings, Player player) {
 		int counter = 0;
 		for (Player current : findings) {
-			if (current != player) {
+			if (current.isCatchedUp()) {
 				counter++;
 			}
 		}

@@ -23,7 +23,10 @@ public abstract class BotPlayer extends Player{
 
 	@Override
 	public void yourTurnCatchUp(List<Player> players) {
+		setHasCatchedUp();
 		Object[] args = chooseCatchUp(players);
+		Player toCatch = (Player) args[1];
+		addCapturedCard(toCatch.catchUp((boolean) args[2]));
 		notifyAll(NotEvent.CATCH_UP_MENU_BOT, args);
 		getCurrentParty().endCatchUpTurn(this, (Player) args[1]);
 	}
