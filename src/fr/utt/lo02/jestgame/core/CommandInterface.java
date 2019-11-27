@@ -360,8 +360,8 @@ public class CommandInterface implements IObserver {
 			} while (tf);
 		} else if (event == NotEvent.FACE_UP_MENU_BOT) {
 			Player current = (Player) args[0];
-			int choosedRank = (int) args[1];
-			ICard choosed = current.getHand().get(choosedRank);
+			int choosedCard = (int) args[1];
+			ICard choosed = current.getHand().get(choosedCard);
 			System.out.println("Le joueur : " + current.getName() + " a choisi la carte : " + choosed.getName() + " "
 					+ choosed.getColor());
 			current.notifyBack(NotEvent.FACE_UP_MENU_BOT, null);

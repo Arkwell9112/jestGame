@@ -17,8 +17,8 @@ public abstract class BotPlayer extends Player{
 	public void yourTurnFaceUp(List<Player> players) {
 		int choosed = chooseFaceUp(players);
 		Object[] arg = {this, choosed};
-		notifyAll(NotEvent.FACE_UP_MENU_BOT, arg);
 		setFacedUp(choosed);
+		notifyAll(NotEvent.FACE_UP_MENU_BOT, arg);
 	}
 
 	@Override
