@@ -18,11 +18,10 @@ public class RandomPlayer extends BotPlayer {
 	}
 
 	@Override
-	//Ajouter dernier recour
 	protected Object[] chooseCatchUp(List<Player> players) {
 		int choosed = (int) (Math.random() * players.size());
 		while (true) {
-			if (!players.get(choosed).isCatchedUp()) {
+			if (!players.get(choosed).isCatchedUp() && players.get(choosed) != this) {
 				boolean tf = false;
 				if ((int) (Math.random() * 2) == 1) {
 					tf = true;
