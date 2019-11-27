@@ -16,6 +16,11 @@ public class CommandInterface implements IObserver {
 	private Object[] players;
 	private Observable lastObserved;
 	private Player currentPlayer;
+	private Scanner input;
+
+	public CommandInterface() {
+		input = new Scanner(System.in);
+	}
 
 	@Override
 	public void update(Observable observed, NotEvent callEvent, Object[] args) {
@@ -65,7 +70,6 @@ public class CommandInterface implements IObserver {
 			}
 		}
 
-		Scanner input = new Scanner(System.in);
 		Byte nbPlayers = 0;
 		Byte nbBots = 0;
 		boolean tfPlayer = true;
@@ -223,8 +227,6 @@ public class CommandInterface implements IObserver {
 			}
 		}
 
-		input.close();
-
 		List<Object> returner = new ArrayList<Object>();
 
 		Iterator<IMod> it2 = choosedPlayers.iterator();
@@ -256,15 +258,21 @@ public class CommandInterface implements IObserver {
 	}
 
 	private void setCatchUpMenu(NotEvent event, Object[] args, Observable observed) {
-		Scanner input = new Scanner(System.in);
 		players = args;
 		lastObserved = observed;
 
 		if (event == NotEvent.CATCH_UP_MENU) {
 			boolean choosed = false;
+			List<Player> playersList = new ArrayList<Player>(4);
+			for(Object obj : args) {
+				playersList.add((Player) obj);
+			}
+			int pos = findYou(playersList, currentPlayer);
+			boolean everybody = everyChoosed(playersList, currentPlayer);
 			while (!choosed) {
 				System.out.println("Joueur : " + currentPlayer.getName());
-				System.out.println("Veuillez choisir un joueur à capturer, il est possible de vous capturer vous même");
+				System.out.println(
+						"Veuillez choisir un joueur à capturer, il est possible de vous capturer vous même seulement en dernier recour");
 				System.out.println("Entrez le chiffre correspondant au joueur que vous souhaitez capturer");
 				int counter = 0;
 				for (Object obj : args) {
@@ -276,7 +284,7 @@ public class CommandInterface implements IObserver {
 				}
 				if (input.hasNextByte()) {
 					byte next = input.nextByte();
-					if (next >= 0 && next <= args.length - 1) {
+					if (((next >= 0 && next <= args.length - 1) && pos != next) || (pos == next && everybody)) {
 						System.out.println("Votre choix est bien pris en compte");
 						System.out.println(
 								"Voulez vous capturer la carte face visible ou une autre carte, répondre par 1/0");
@@ -285,7 +293,7 @@ public class CommandInterface implements IObserver {
 							if (nexte == 1) {
 								System.out.println("Votre choix est bien pris en compte");
 								choosed = true;
-								Object[] back = { next, true };
+								Object[] back = { (Player) args[next], true };
 								observed.notifyBack(NotEvent.CATCH_UP_MENU, back);
 							} else if (nexte == 0) {
 								System.out.println("Votre choix est bien pris en compte");
@@ -312,14 +320,11 @@ public class CommandInterface implements IObserver {
 			setCatchUpMenu(NotEvent.CATCH_UP_MENU, players, lastObserved);
 		} else if (event == NotEvent.CATCH_UP_MENU_SUCCESS) {
 			ICard card = (ICard) args[0];
-			System.out.println(
-					"La carte : " + card.getName() + " " + card.getColorValue() + " a correctement été capturé");
+			System.out.println("La carte : " + card.getName() + " " + card.getColor() + " a correctement été capturé");
 		}
-		input.close();
 	}
 
 	private void setFaceUpMenu(NotEvent event, Object[] args, Observable observed) {
-		Scanner input = new Scanner(System.in);
 		if (event == NotEvent.FACE_UP_MENU) {
 			Player current = (Player) args[0];
 			System.out.println("Joueur : " + current.getName());
@@ -334,16 +339,19 @@ public class CommandInterface implements IObserver {
 			}
 			boolean tf = true;
 			do {
-				// Test
-				byte next = 0;
+				if (input.hasNextByte()) {
+					byte next = input.nextByte();
 
-				if (next >= 0 && next <= current.getHand().size() - 1) {
-					System.out.println("L'information est bien prise en compte");
-					Object[] back = { next };
-					observed.notifyBack(NotEvent.FACE_UP_MENU, back);
-					tf = false;
+					if (next >= 0 && next <= current.getHand().size() - 1) {
+						System.out.println("L'information est bien prise en compte");
+						Object[] back = { next };
+						observed.notifyBack(NotEvent.FACE_UP_MENU, back);
+						tf = false;
+					} else {
+						System.out.println("L'entrée est incorrecte");
+					}
 				} else {
-					System.out.println("L'entrée est incorrecte");
+					System.out.println("Erreur d'entrée");
 				}
 			} while (tf);
 		} else if (event == NotEvent.FACE_UP_MENU_BOT) {
@@ -354,7 +362,6 @@ public class CommandInterface implements IObserver {
 					+ choosed.getColor());
 			current.notifyBack(NotEvent.FACE_UP_MENU_BOT, null);
 		}
-		input.close();
 	}
 
 	private void setWinPartyMenu(NotEvent event, Object[] args) {
@@ -376,5 +383,29 @@ public class CommandInterface implements IObserver {
 				System.out.println(current.getName() + " " + current.getColor());
 			}
 		}
+	}
+
+	private int findYou(List<Player> findings, Player player) {
+		for (int i = 0; i <= findings.size(); i++) {
+			if (findings.get(i) == player) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	private boolean everyChoosed(List<Player> findings, Player player) {
+		int counter = 0;
+		for (Player current : findings) {
+			if (current != player) {
+				counter++;
+			}
+		}
+		if (counter == findings.size() - 1) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 }

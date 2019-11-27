@@ -97,17 +97,22 @@ public abstract class Player extends Observable {
 		isFacedUp = true;
 		facedUpRank = facedUp;
 	}
+	
+	public void resetFacedUp() {
+		isFacedUp = false;
+	}
 
 	public boolean isCatchedUp() {
 		return isCatchedUp;
 	}
 
 	public void setCatchedUp() {
-		isCatchedUp = true;
+		isCatchedUp = false;
 	}
 
 	public ICard catchUp(boolean isCatchingFacedUpCard) {
 		if (isCatchedUp == false) {
+			isCatchedUp = true;
 			if (isCatchingFacedUpCard) {
 				ICard card = hand.get(facedUpRank);
 				hand.remove(facedUpRank);

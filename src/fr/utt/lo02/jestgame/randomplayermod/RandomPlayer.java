@@ -18,6 +18,7 @@ public class RandomPlayer extends BotPlayer {
 	}
 
 	@Override
+	//Ajouter dernier recour
 	protected Object[] chooseCatchUp(List<Player> players) {
 		int choosed = (int) (Math.random() * players.size());
 		while (true) {

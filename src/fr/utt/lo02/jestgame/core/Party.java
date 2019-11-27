@@ -51,7 +51,7 @@ public class Party extends Observable {
 		while (it.hasNext()) {
 			IMod next = it.next();
 			Object[] instances = next.getInstance();
-			for(Object obj : instances) {
+			for (Object obj : instances) {
 				ICard current = (ICard) obj;
 				cards.add(current);
 			}
@@ -66,8 +66,8 @@ public class Party extends Observable {
 		}
 
 		pot = new Pot(trophies);
-		
-		Object[] arg = {pot};
+
+		Object[] arg = { pot };
 		notifyAll(NotEvent.SHOW_TROPHY, arg);
 	}
 
@@ -75,7 +75,7 @@ public class Party extends Observable {
 		Iterator<ICard> it = pot.getTrophies().iterator();
 		while (it.hasNext()) {
 			ICard card = it.next();
-			if(card.chooseTrophyOwner(players) != null) {
+			if (card.chooseTrophyOwner(players) != null) {
 				card.chooseTrophyOwner(players).addCapturedCard(card);
 			}
 		}
@@ -87,6 +87,10 @@ public class Party extends Observable {
 	}
 
 	private void beginCatchUp() {
+		Iterator<Player> it = players.iterator();
+		while (it.hasNext()) {
+			it.next().setCatchedUp();
+		}
 		currentRank = 0;
 		Player beginner = rules.chooseFirstCatch(players);
 		beginner.yourTurnCatchUp(players);
@@ -95,7 +99,6 @@ public class Party extends Observable {
 
 	public void endFaceUpTurn(Player player) {
 		currentRank++;
-		System.out.println("end" + currentRank);
 		if (currentRank > players.size() - 1) {
 			currentRank = 0;
 		}
@@ -109,6 +112,20 @@ public class Party extends Observable {
 	public void endCatchUpTurn(Player player, Player nextPlayer) {
 		currentRank++;
 		if (currentRank < players.size()) {
+			int pos = 0;
+			for (int i = 0; i <= players.size() - 1; i++) {
+				if(players.get(i) == nextPlayer) {
+					pos = i;
+				}
+			}
+			boolean founded = false;
+			while(!founded) {
+				pos++;
+				if(!players.get(pos).isCatchedUp()) {
+					nextPlayer = players.get(pos);
+					founded = true;
+				}
+			}
 			nextPlayer.yourTurnCatchUp(players);
 		} else if (draw.getRemainingCards() >= players.size()) {
 			beginFaceUp();
@@ -137,8 +154,18 @@ public class Party extends Observable {
 		}
 	}
 
-	//penser à redistribuer cartes
 	private void beginFaceUp() {
+		Iterator<Player> it = players.iterator();
+		while (it.hasNext()) {
+			it.next().resetFacedUp();
+		}
+
+		if (players.get(0).isCatchedUp()) {
+			Iterator<Player> it2 = players.iterator();
+			while (it2.hasNext()) {
+				it2.next().addHand(draw.getDraft());
+			}
+		}
 		currentRank = 0;
 		players.get(currentRank).yourTurnFaceUp(players);
 	}
