@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.utt.lo02.jestgame.api.ICard;
+import fr.utt.lo02.jestgame.basemod.CouldBeAnAce;
 import fr.utt.lo02.jestgame.core.Player;
 
 public class Majority implements ITrophyChooser {
@@ -22,10 +23,13 @@ public class Majority implements ITrophyChooser {
 			Iterator<ICard> it2 = current.getCapturedCards().iterator();
 			while (it2.hasNext()) {
 				ICard currentCard = it2.next();
-				if (Math.abs(currentCard.endFaceValue(players, current)) == arg) {
-					currentMajority++;
-					if (currentCard.getColorValue() > currentColor) {
-						currentColor = currentCard.getColorValue();
+				if (CouldBeAnAce.class.isAssignableFrom(currentCard.getClass())) {
+					CouldBeAnAce currentCould = (CouldBeAnAce) currentCard;
+					if (Math.abs(currentCould.getAceValue(players, current)) == arg) {
+						currentMajority++;
+						if (currentCard.getColorValue() > currentColor) {
+							currentColor = currentCard.getColorValue();
+						}
 					}
 				}
 			}

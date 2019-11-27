@@ -20,6 +20,7 @@ public class GameLoader extends Observable {
 
 	public static void main(String[] args) {
 		GameLoader gameLoader = new GameLoader(loadMods());
+		gameLoader.startGame();
 	}
 
 	public static IMod[] loadMods() {
@@ -139,7 +140,6 @@ public class GameLoader extends Observable {
 			}
 			
 			currentParty = new Party(players, cards, rules, currentInterface, names);
-			startGame();
 		}
 
 	}

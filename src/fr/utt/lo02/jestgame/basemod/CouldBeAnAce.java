@@ -12,7 +12,7 @@ public abstract class CouldBeAnAce extends Card implements ICard {
 		super(name, color, colorValue, baseValue);
 	}
 
-	protected int getAceValue(List<Player> players, Player myPlayer) {
+	public int getAceValue(List<Player> players, Player myPlayer) {
 		if (getName() == "Ace") {
 			boolean alone = true;
 			Iterator<ICard> it = myPlayer.getCapturedCards().iterator();

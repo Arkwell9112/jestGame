@@ -99,6 +99,7 @@ public class Party extends Observable {
 
 	}
 
+	//Ajouter la rotation du joueur qui débute le faceUp
 	public void endFaceUpTurn(Player player) {
 		currentRank++;
 		if (currentRank > players.size() - 1) {
@@ -137,7 +138,7 @@ public class Party extends Observable {
 		} else if (draw.getRemainingCards() >= players.size()) {
 			beginFaceUp();
 		} else {
-
+			
 		}
 	}
 

@@ -306,10 +306,12 @@ public class CommandInterface implements IObserver {
 								System.out.println("L'entrée n'est pas correcte");
 							}
 						}
+					} else {
+						System.out.println("L'entrée n'est pas correcte");
 					}
+				} else {
 					System.out.println("L'entrée n'est pas correcte");
 				}
-				System.out.println("L'entrée n'est pas correcte");
 			}
 		} else if (event == NotEvent.CATCH_UP_MENU_BOT) {
 			Player theplayer = (Player) args[0];
