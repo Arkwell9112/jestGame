@@ -11,7 +11,7 @@ public class SpadesAndClubs extends CouldBeAnAce implements ICard {
 
 	private TrophyType myType;
 	private Object trophyArg;
-	
+
 	public SpadesAndClubs(String name, String color, int colorValue, int baseValue, TrophyType type, Object trophyArg) {
 		super(name, color, colorValue, baseValue);
 		this.myType = type;
@@ -27,14 +27,23 @@ public class SpadesAndClubs extends CouldBeAnAce implements ICard {
 		boolean found = false;
 		while (it.hasNext()) {
 			ICard current = it.next();
-			if ((current.getName() == "Spade" || current.getName() == "Club")
-					&& (current.endFaceValue(players, myPlayer)) == endFaceValue(players, myPlayer)) {
-				found = true;
+			if (this.getColor() == "Spade") {
+				if (current.getColor() == "Club") {
+					if (current.endFaceValue(players, myPlayer) == this.endFaceValue(players, myPlayer)) {
+						found = true;
+					}
+				}
+			} else if (this.getColor() == "Club") {
+				if (current.getColor() == "Spade") {
+					if (current.endFaceValue(players, myPlayer) == this.endFaceValue(players, myPlayer)) {
+						found = true;
+					}
+				}
 			}
 		}
 
 		if (found) {
-			return 2;
+			return 1;
 		} else {
 			return 0;
 		}

@@ -383,6 +383,8 @@ public class CommandInterface implements IObserver {
 			while (it.hasNext()) {
 				ICard current = it.next();
 				System.out.println(current.getName() + " " + current.getColor());
+				System.out.println(current.endFaceValue(players, player));
+				System.out.println(current.endSpecialFaceValue(players, player));
 			}
 		}
 	}

@@ -17,7 +17,8 @@ public abstract class CouldBeAnAce extends Card implements ICard {
 			boolean alone = true;
 			Iterator<ICard> it = myPlayer.getCapturedCards().iterator();
 			while (it.hasNext()) {
-				if (it.next().getColor() == getColor()) {
+				ICard next = it.next();
+				if (next.getColor() == this.getColor() && next != this) {
 					alone = false;
 				}
 			}

@@ -30,7 +30,7 @@ public class RandomPlayer extends BotPlayer {
 				counter++;
 			}
 		}
-		if(counter == players.size() - 1) {
+		if(counter == players.size() - 1 && !this.isCatchedUp()) {
 			lastOne = true;
 		}
 		while (true) {
