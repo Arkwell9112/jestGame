@@ -30,7 +30,7 @@ public class GameLoader extends Observable {
 
 		// Récupération de tous les fichiers contenus dans mods en triant par leur
 		// extension, uniquement les .jar sont conservés
-		File[] files = new File("C:\\Users\\Edouard\\Documents\\Projet_LO02\\mods").listFiles(new ModFilter());
+		File[] files = new File("mods").listFiles(new ModFilter());
 
 		// Récupération du nom de la classe principale dans chaques fichiers .jar
 		for (File file : files) {
