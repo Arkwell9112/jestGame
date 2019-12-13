@@ -5,33 +5,49 @@ import java.util.List;
 import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * @author Edouard Classe de base pour tous les carreaux.
+ */
 public class Diamonds extends CouldBeAnAce {
 
+	/**
+	 * Définit le type de trophé dont il s'agit en utilisant l'énumération associé
+	 * TrophyType.
+	 */
 	private TrophyType myType;
+	/**
+	 * L'argument à envoyer pour permettre le choix du joueur pouvant récupéré ce
+	 * trophé.
+	 */
 	private Object trophyArg;
-	
+
+	/**
+	 * @param name      Nom de la carte
+	 * @param baseValue Valeur faciale de base de la carte
+	 * @param type      Type de trophé de la carte
+	 * @param trophyArg Argument permettant le choix du joueur recevant le trophé
+	 */
 	public Diamonds(String name, int baseValue, TrophyType type, Object trophyArg) {
 		super(name, "Diamond", 20, baseValue);
 		this.myType = type;
 		this.trophyArg = trophyArg;
 	}
-	
+
 	public Player chooseTrophyOwner(List<Player> players) {
 		return myType.getChooser().delegateTrophyChoose(players, this, trophyArg);
 	}
+
 	public int getUpdatedGameFaceValue(List<Player> players) {
 		return getBaseValue();
 	}
+
 	public int endFaceValue(List<Player> players, Player myPlayer) {
 		return -getAceValue(players, myPlayer);
 	}
+
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
 		return 0;
-			
+
 	}
 
 }
-
-	
-
-
