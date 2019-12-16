@@ -3,6 +3,8 @@ package fr.utt.lo02.jestgame.basemod;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 import fr.utt.lo02.jestgame.core.Player;
@@ -12,8 +14,8 @@ public class Hearts extends CouldBeAnAce {
 	private TrophyType myType;
 	private Object trophyArg;
 
-	public Hearts(String name, int baseValue, TrophyType type, Object trophyArg) {
-		super(name, "Heart", 10, baseValue);
+	public Hearts(String name, int baseValue, TrophyType type, Object trophyArg, ImageIcon texture) {
+		super(name, "Heart", 10, baseValue, texture);
 		this.myType = type;
 		this.trophyArg = trophyArg;
 	}

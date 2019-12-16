@@ -3,6 +3,8 @@ package fr.utt.lo02.jestgame.basemod;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.core.Player;
 
@@ -19,8 +21,8 @@ public abstract class CouldBeAnAce extends Card implements ICard {
 	 * @param baseValue
 	 * Constructeur permettant l'appel du constructeur de la classe Mère
 	 */
-	public CouldBeAnAce(String name, String color, int colorValue, int baseValue) {
-		super(name, color, colorValue, baseValue);
+	public CouldBeAnAce(String name, String color, int colorValue, int baseValue, ImageIcon texture) {
+		super(name, color, colorValue, baseValue, texture);
 	}
 
 	/**

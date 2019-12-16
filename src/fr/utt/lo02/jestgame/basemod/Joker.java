@@ -3,6 +3,8 @@ package fr.utt.lo02.jestgame.basemod;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 import fr.utt.lo02.jestgame.core.Player;
@@ -11,9 +13,9 @@ public class Joker extends Card {
 
 	private TrophyType myType;
 	private Object trophyArg;
-	
-	public Joker(TrophyType type, Object trophyArg) {
-		super("Joker", "Joker", 0, 0);
+
+	public Joker(TrophyType type, Object trophyArg, ImageIcon texture) {
+		super("Joker", "Joker", 0, 0, texture);
 		this.myType = type;
 		this.trophyArg = trophyArg;
 	}

@@ -3,6 +3,8 @@ package fr.utt.lo02.jestgame.basemod;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 import fr.utt.lo02.jestgame.core.Player;
@@ -12,8 +14,8 @@ public class SpadesAndClubs extends CouldBeAnAce implements ICard {
 	private TrophyType myType;
 	private Object trophyArg;
 
-	public SpadesAndClubs(String name, String color, int colorValue, int baseValue, TrophyType type, Object trophyArg) {
-		super(name, color, colorValue, baseValue);
+	public SpadesAndClubs(String name, String color, int colorValue, int baseValue, TrophyType type, Object trophyArg, ImageIcon texture) {
+		super(name, color, colorValue, baseValue, texture);
 		this.myType = type;
 		this.trophyArg = trophyArg;
 	}

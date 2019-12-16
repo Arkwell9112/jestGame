@@ -1,11 +1,13 @@
 package fr.utt.lo02.jestgame.basemod;
 
+import javax.swing.ImageIcon;
+
 import fr.utt.lo02.jestgame.api.ICard;
 
 /**
  * 
- * @author akramsyukri
- * Classe mère de toutes les classes qui sont des cartes dans le mod
+ * @author akramsyukri Classe mère de toutes les classes qui sont des cartes
+ *         dans le mod
  */
 public abstract class Card implements ICard {
 
@@ -26,8 +28,11 @@ public abstract class Card implements ICard {
 	 */
 	private int baseValue;
 
+	private ImageIcon texture;
+
 	/**
-	 * @return Renvoie la valeur faciale de base de la carte, valeur strictement positive
+	 * @return Renvoie la valeur faciale de base de la carte, valeur strictement
+	 *         positive
 	 */
 	public int getBaseValue() {
 		return baseValue;
@@ -42,7 +47,7 @@ public abstract class Card implements ICard {
 
 	/**
 	 * @return renvoie la valeur de la couleur de la carte, pour les cartes de base
-	 * cette valeur est figé, 10 coeur, 20 carreau, 30 trèfle et 40 pic
+	 *         cette valeur est figé, 10 coeur, 20 carreau, 30 trèfle et 40 pic
 	 */
 	public int getColorValue() {
 		return colorValue;
@@ -55,15 +60,20 @@ public abstract class Card implements ICard {
 		return color;
 	}
 
+	public ImageIcon getTexture() {
+		return texture;
+	}
+
 	/**
 	 * c'est le constructeur pour la classe Card
 	 * 
-	 * @param name Nom de la carte
-	 * @param color Nom de la couleur de la carte
+	 * @param name       Nom de la carte
+	 * @param color      Nom de la couleur de la carte
 	 * @param colorValue Valeur de la couleur de la carte
-	 * @param baseValue Valeur faciale de base de la carte
+	 * @param baseValue  Valeur faciale de base de la carte
 	 */
-	public Card(String name, String color, int colorValue, int baseValue) {
+	public Card(String name, String color, int colorValue, int baseValue, ImageIcon texture) {
+		this.texture = texture;
 		this.name = name;
 		this.color = color;
 		this.colorValue = colorValue;
