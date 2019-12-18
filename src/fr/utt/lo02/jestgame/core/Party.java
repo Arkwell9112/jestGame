@@ -67,7 +67,7 @@ public class Party extends Observable {
 
 		pot = new Pot(trophies);
 
-		Object[] arg = { pot };
+		Object[] arg = { pot, (byte) rules.getPlayerCardNb() };
 		notifyAll(NotEvent.SHOW_TROPHY, arg);
 	}
 
@@ -87,19 +87,13 @@ public class Party extends Observable {
 	}
 
 	private void beginCatchUp() {
-		Iterator<Player> it = players.iterator();
-		while (it.hasNext()) {
-			Player current = it.next();
-			current.setCatchedUp();
-			current.resetHasCatchedUp();
-		}
 		currentRank = 0;
 		Player beginner = rules.chooseFirstCatch(players);
 		beginner.yourTurnCatchUp(players);
 
 	}
 
-	//Ajouter la rotation du joueur qui débute le faceUp
+	// Ajouter la rotation du joueur qui débute le faceUp
 	public void endFaceUpTurn(Player player) {
 		currentRank++;
 		if (currentRank > players.size() - 1) {
@@ -136,9 +130,13 @@ public class Party extends Observable {
 			}
 			nextPlayer.yourTurnCatchUp(players);
 		} else if (draw.getRemainingCards() >= players.size()) {
-			beginFaceUp();
-		} else {
-			
+			Iterator<Player> it = players.iterator();
+			while (it.hasNext()) {
+				Player current = it.next();
+				current.setCatchedUp();
+				current.resetHasCatchedUp();
+			}
+			beginFaceUp(true);
 		}
 	}
 
@@ -156,20 +154,20 @@ public class Party extends Observable {
 				pl.setHand(handy);
 				cards.clear();
 			}
-			beginFaceUp();
+			beginFaceUp(false);
 			endParty();
 		} else {
 			System.out.println("Impossible de continuer, pas suffisemment de cartes pour jouer");
 		}
 	}
 
-	private void beginFaceUp() {
+	private void beginFaceUp(boolean fromCatch) {
 		Iterator<Player> it = players.iterator();
 		while (it.hasNext()) {
 			it.next().resetFacedUp();
 		}
 
-		if (players.get(0).isCatchedUp()) {
+		if (fromCatch) {
 			Iterator<Player> it2 = players.iterator();
 			while (it2.hasNext()) {
 				it2.next().addHand(draw.getDraft());

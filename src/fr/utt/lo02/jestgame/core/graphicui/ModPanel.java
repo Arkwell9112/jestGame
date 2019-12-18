@@ -58,9 +58,9 @@ public class ModPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Oui")) {
-			displayer.callBack(null, true);
+			displayer.callBack(CallBackEvent.MOD_PANEL, true);
 		} else {
-			displayer.callBack(null, false);
+			displayer.callBack(CallBackEvent.MOD_PANEL, false);
 		}
 	}
 

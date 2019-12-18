@@ -11,14 +11,22 @@ import java.util.List;
 import java.util.jar.JarFile;
 
 import fr.utt.lo02.jestgame.api.IMod;
+import fr.utt.lo02.jestgame.core.graphicui.GraphicController;
 
 public class GameLoader extends Observable {
 
 	private Party currentParty;
 	private IObserver currentInterface;
 	private IMod[] loadedMods;
+	private static boolean isGraphic;
 
 	public static void main(String[] args) {
+		if (args.length > 0) {
+			if (args[0].equals("-t") && args[1].equals("command")) {
+				isGraphic = false;
+			}
+		}
+		isGraphic = true;
 		GameLoader gameLoader = new GameLoader(loadMods());
 		gameLoader.startGame();
 	}
@@ -102,7 +110,11 @@ public class GameLoader extends Observable {
 
 	public GameLoader(IMod[] mods) {
 		this.loadedMods = mods;
-		currentInterface = new CommandInterface();
+		if (isGraphic == true) {
+			currentInterface = new GraphicController();
+		} else {
+			currentInterface = new CommandInterface();
+		}
 		addObserver(currentInterface);
 		notifyAll(NotEvent.CREATE_PARTY_MENU, loadedMods);
 	}
@@ -135,10 +147,10 @@ public class GameLoader extends Observable {
 				count++;
 			}
 
-			while(players.size() != names.size()) {
+			while (players.size() != names.size()) {
 				players.add(null);
 			}
-			
+
 			currentParty = new Party(players, cards, rules, currentInterface, names);
 		}
 

@@ -87,6 +87,9 @@ public class CommandInterface implements IObserver {
 					System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 				}
 			} else {
+				if (input.hasNext()) {
+					input.next();
+				}
 				System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 			}
 		} while (tfPlayer);
@@ -103,6 +106,9 @@ public class CommandInterface implements IObserver {
 					System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 				}
 			} else {
+				if (input.hasNext()) {
+					input.next();
+				}
 				System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 			}
 		} while (tfBot);
@@ -137,6 +143,9 @@ public class CommandInterface implements IObserver {
 							System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 						}
 					} else {
+						if (input.hasNext()) {
+							input.next();
+						}
 						System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 					}
 				} while (tfStrategy);
@@ -178,6 +187,9 @@ public class CommandInterface implements IObserver {
 						System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 					}
 				} else {
+					if (input.hasNext()) {
+						input.next();
+					}
 					System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 				}
 			} while (tfRules);
@@ -214,6 +226,9 @@ public class CommandInterface implements IObserver {
 						System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 					}
 				} else {
+					if (input.hasNext()) {
+						input.next();
+					}
 					System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
 				}
 			} while (tfCard);
@@ -258,10 +273,9 @@ public class CommandInterface implements IObserver {
 	}
 
 	private void setCatchUpMenu(NotEvent event, Object[] args, Observable observed) {
-		players = args;
-		lastObserved = observed;
-
 		if (event == NotEvent.CATCH_UP_MENU) {
+			players = args;
+			lastObserved = observed;
 			boolean choosed = false;
 			List<Player> playersList = new ArrayList<Player>(4);
 			for (Object obj : args) {
@@ -305,11 +319,19 @@ public class CommandInterface implements IObserver {
 							} else {
 								System.out.println("L'entrée n'est pas correcte");
 							}
+						} else {
+							if (input.hasNext()) {
+								input.next();
+							}
+							System.out.println("L'entrée n'est pas correcte");
 						}
 					} else {
 						System.out.println("L'entrée n'est pas correcte");
 					}
 				} else {
+					if (input.hasNext()) {
+						input.next();
+					}
 					System.out.println("L'entrée n'est pas correcte");
 				}
 			}
@@ -355,6 +377,9 @@ public class CommandInterface implements IObserver {
 						System.out.println("L'entrée est incorrecte");
 					}
 				} else {
+					if (input.hasNext()) {
+						input.next();
+					}
 					System.out.println("Erreur d'entrée");
 				}
 			} while (tf);

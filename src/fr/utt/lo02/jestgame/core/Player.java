@@ -18,6 +18,7 @@ public abstract class Player extends Observable {
 	private int facedUpRank;
 	private Party currentParty;
 	private boolean hasCatchedUp;
+	private ICard facedUpCard;
 	
 	public void resetHasCatchedUp() {
 		hasCatchedUp = false;
@@ -56,6 +57,7 @@ public abstract class Player extends Observable {
 		hand = new ArrayList<ICard>();
 		capturedCards = new ArrayList<ICard>();
 		hasCatchedUp = false;
+		facedUpCard = null;
 	}
 
 	public Party getCurrentParty() {
@@ -96,8 +98,8 @@ public abstract class Player extends Observable {
 	public abstract void yourTurnCatchUp(List<Player> players);
 
 	public ICard getFacedUpCard() {
-		if(!isCatchedUp) {
-			return hand.get(facedUpRank);
+		if(isFacedUp && hand.contains(facedUpCard)) {
+			return facedUpCard;
 		} else {
 			return null;
 		}
@@ -110,6 +112,7 @@ public abstract class Player extends Observable {
 	public void setFacedUp(int facedUp) {
 		isFacedUp = true;
 		facedUpRank = facedUp;
+		facedUpCard = hand.get(facedUpRank);
 	}
 	
 	public void resetFacedUp() {
@@ -132,10 +135,12 @@ public abstract class Player extends Observable {
 				hand.remove(facedUpRank);
 				return card;
 			} else {
-				int rand = (int) Math.random()*hand.size();
-				ICard card = hand.get(rand);
-				hand.remove(rand);
-				return card;
+				List<ICard> newHand = new ArrayList<ICard>(hand);
+				newHand.remove(newHand.get(facedUpRank));
+				int rand = (int) Math.random() * newHand.size();
+				ICard choosen = newHand.get(rand);
+				hand.remove(choosen);
+				return choosen;
 			}
 		}
 		else {

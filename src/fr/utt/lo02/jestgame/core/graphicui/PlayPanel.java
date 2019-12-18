@@ -1,6 +1,5 @@
 package fr.utt.lo02.jestgame.core.graphicui;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ import javax.swing.SpringLayout;
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.core.Player;
 
+@SuppressWarnings("serial")
 public class PlayPanel extends JPanel implements ActionListener {
 	private List<JButton> activeCardButtons;
 	private List<JButton> passiveCardButtons;
@@ -23,6 +23,11 @@ public class PlayPanel extends JPanel implements ActionListener {
 	private List<JLabel> nameLabels;
 	private JLabel centerCard;
 	private JLabel actionLabel;
+	private ImageIcon center;
+	private ImageIcon verso;
+	private ImageIcon crossed;
+	private String corePath;
+	@SuppressWarnings("unused")
 	private byte nbPlayer;
 	private byte nbCard;
 	private byte nbTrophy;
@@ -30,6 +35,10 @@ public class PlayPanel extends JPanel implements ActionListener {
 	private SpringLayout layout;
 
 	public PlayPanel(byte nbPlayer, byte nbCard, byte nbTrophy, Window displayer) {
+		corePath = "img\\core";
+		center = new ImageIcon(corePath + "\\center.jpg");
+		verso = new ImageIcon(corePath + "\\verso.jpg");
+		crossed = new ImageIcon(corePath + "\\crossed.jpg");
 		layout = new SpringLayout();
 		this.setLayout(layout);
 		this.nbTrophy = nbTrophy;
@@ -40,10 +49,8 @@ public class PlayPanel extends JPanel implements ActionListener {
 		passiveCardButtons = new ArrayList<JButton>();
 		trophyLabels = new ArrayList<JLabel>();
 		nameLabels = new ArrayList<JLabel>();
-		ImageIcon center = new ImageIcon(new ImageIcon(System.getProperty("user.dir") + "\\img\\core\\centercard.png")
-				.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 		for (int i = 0; i < nbPlayer; i++) {
-			JLabel current = new JLabel("Le nom");
+			JLabel current = new JLabel();
 			nameLabels.add(current);
 			this.add(current);
 		}
@@ -51,11 +58,13 @@ public class PlayPanel extends JPanel implements ActionListener {
 			JButton current = new JButton();
 			activeCardButtons.add(current);
 			current.setActionCommand(Integer.toString(i) + "active");
+			current.addActionListener(this);
 		}
 		for (int i = 0; i < (nbPlayer - 1) * nbCard; i++) {
 			JButton current = new JButton();
 			passiveCardButtons.add(current);
 			current.setActionCommand(Integer.toString(i) + "passive");
+			current.addActionListener(this);
 		}
 		for (int i = 0; i < nbTrophy; i++) {
 			JLabel current = new JLabel();
@@ -199,7 +208,6 @@ public class PlayPanel extends JPanel implements ActionListener {
 				it.next().setIcon(it2.next().getTexture());
 			}
 		}
-		this.revalidate();
 	}
 
 	public void setActionLabel(String label) {
@@ -207,12 +215,58 @@ public class PlayPanel extends JPanel implements ActionListener {
 	}
 
 	public void setPlay(List<Player> players, Player activePlayer) {
-		
+		int counter = 0;
+		if (activePlayer.getFacedUpCard() != null) {
+			activeCardButtons.get(counter).setIcon(activePlayer.getFacedUpCard().getTexture());
+			counter++;
+		}
+		Iterator<ICard> it = activePlayer.getHand().iterator();
+		while (it.hasNext()) {
+			ICard current = it.next();
+			if (current != activePlayer.getFacedUpCard()) {
+				activeCardButtons.get(counter).setIcon(current.getTexture());
+				counter++;
+			}
+		}
+		if (counter != nbCard) {
+			for (int i = counter; i < nbCard; i++) {
+				activeCardButtons.get(i).setIcon(crossed);
+			}
+		}
+		nameLabels.get(0).setText(activePlayer.getName());
+		Iterator<Player> it2 = players.iterator();
+		int playerCount = 0;
+		while (it2.hasNext()) {
+			Player currentPlayer = it2.next();
+			if (currentPlayer != activePlayer) {
+				nameLabels.get(playerCount + 1).setText(currentPlayer.getName());
+				counter = 0;
+				if (currentPlayer.getFacedUpCard() != null) {
+					passiveCardButtons.get(playerCount * nbCard).setIcon(currentPlayer.getFacedUpCard().getTexture());
+					counter++;
+				}
+				Iterator<ICard> it3 = currentPlayer.getHand().iterator();
+				while (it3.hasNext()) {
+					ICard currentCard = it3.next();
+					if (currentPlayer.getFacedUpCard() != currentCard) {
+						//à remettre vers currentCard.getTexture() pour debuggage
+						passiveCardButtons.get(playerCount * nbCard + counter).setIcon(verso);
+						counter++;
+					}
+				}
+				if (counter != nbCard) {
+					for (int i = counter; i < nbCard; i++) {
+						passiveCardButtons.get(playerCount * nbCard + i).setIcon(crossed);
+					}
+				}
+				playerCount++;
+			}
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		displayer.callBack(CallBackEvent.PLAY_PANEL, e.getActionCommand());
 	}
 
 }

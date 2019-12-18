@@ -46,7 +46,7 @@ public class NbBotPanel extends JPanel implements ActionListener {
 			byte nbBot = Byte.parseByte(textField.getText());
 
 			if (nbPlayer - nbBot > 0) {
-				displayer.callBack(null, nbBot);
+				displayer.callBack(CallBackEvent.BOT_PANEL, nbBot);
 			} else {
 				text.setForeground(Color.RED);
 			}
