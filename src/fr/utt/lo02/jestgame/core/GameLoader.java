@@ -21,12 +21,12 @@ public class GameLoader extends Observable {
 	private static boolean isGraphic;
 
 	public static void main(String[] args) {
+		isGraphic = true;
 		if (args.length > 0) {
 			if (args[0].equals("-t") && args[1].equals("command")) {
 				isGraphic = false;
 			}
 		}
-		isGraphic = true;
 		GameLoader gameLoader = new GameLoader(loadMods());
 		gameLoader.startGame();
 	}
@@ -110,7 +110,7 @@ public class GameLoader extends Observable {
 
 	public GameLoader(IMod[] mods) {
 		this.loadedMods = mods;
-		if (isGraphic == true) {
+		if (isGraphic) {
 			currentInterface = new GraphicController();
 		} else {
 			currentInterface = new CommandInterface();
