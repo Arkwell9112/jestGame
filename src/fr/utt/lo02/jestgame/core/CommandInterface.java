@@ -69,7 +69,7 @@ public class CommandInterface implements IObserver {
 				cards.add(mod);
 			}
 		}
-
+		
 		Byte nbPlayers = 0;
 		Byte nbBots = 0;
 		boolean tfPlayer = true;
@@ -152,7 +152,7 @@ public class CommandInterface implements IObserver {
 
 				counter++;
 
-				if (counter >= players.size() - 1) {
+				if (counter >= players.size()) {
 					counter = 0;
 				}
 			}
@@ -196,7 +196,7 @@ public class CommandInterface implements IObserver {
 
 			counter++;
 
-			if (counter >= players.size() - 1) {
+			if (counter >= rules.size()) {
 				counter = 0;
 			}
 		}

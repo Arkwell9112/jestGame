@@ -1,19 +1,18 @@
-package fr.utt.lo02.jestgame.randomplayermod;
+package fr.utt.lo02.jestgame.intelliplayermod;
 
 import fr.utt.lo02.jestgame.api.IMod;
 import fr.utt.lo02.jestgame.api.ModType;
 
-public class RandomPlayerMod implements IMod{
+public class IntelliPlayerMod implements IMod {
 
 	@Override
 	public String getName() {
-		return "RandomPlayer";
+		return "IntelliPlayer";
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return "Ce mod permet d'ajouter une IA de jeu aléatoire";
+		return "IA de joueur un petit peu plus intelligente qui essai de choisir ses coups au mieux";
 	}
 
 	@Override
@@ -23,8 +22,8 @@ public class RandomPlayerMod implements IMod{
 
 	@Override
 	public Object[] getInstance() {
-		Object[] arg = {new RandomPlayer(null, null)};
-		return arg;
+		Object[] back = { new IntelliPlayer(null, null) };
+		return back;
 	}
 
 }

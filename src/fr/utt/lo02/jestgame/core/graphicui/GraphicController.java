@@ -239,6 +239,7 @@ public class GraphicController implements IObserver {
 
 		Iterator<IMod> it2 = cards.iterator();
 		while (it2.hasNext()) {
+			choosed = false;
 			IMod current = it2.next();
 			window.setModPanel(current, "Veuillez choisir vos mods de cartes");
 			try {
@@ -297,7 +298,7 @@ public class GraphicController implements IObserver {
 		returner.add(choosedRules);
 		returner.add(nbPlayer);
 
-		it2 = cards.iterator();
+		it2 = choosedCards.iterator();
 		while (it2.hasNext()) {
 			returner.add(it2.next());
 		}

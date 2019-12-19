@@ -1,4 +1,4 @@
-package fr.utt.lo02.jestgame.baserulemod;
+package fr.utt.lo02.jestgame.speedparty;
 
 import java.util.Iterator;
 import java.util.List;
@@ -7,7 +7,7 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.IPartyRules;
 import fr.utt.lo02.jestgame.core.Player;
 
-public class NormalPartyRules implements IPartyRules {
+public class SpeedParty implements IPartyRules {
 
 	@Override
 	public Player chooseFirstCatch(List<Player> players) {
@@ -77,16 +77,12 @@ public class NormalPartyRules implements IPartyRules {
 
 	@Override
 	public int getPlayerCardNb() {
-		return 2;
+		return 3;
 	}
 
 	@Override
-	public int getTrophyCardNb(int nbPlayer) {
-		if (nbPlayer == 3) {
-			return 2;
-		} else {
-			return 1;
-		}
+	public int getTrophyCardNb(int nbPlayers) {
+		return 2;
 	}
 
 }

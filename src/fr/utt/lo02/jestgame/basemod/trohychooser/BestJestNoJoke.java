@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.utt.lo02.jestgame.api.ICard;
+import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.core.Player;
 
 public class BestJestNoJoke implements ITrophyChooser {

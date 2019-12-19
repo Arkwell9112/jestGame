@@ -1,5 +1,7 @@
 package fr.utt.lo02.jestgame.basemod.trohychooser;
 
+import fr.utt.lo02.jestgame.api.ITrophyChooser;
+
 public enum TrophyType {
 	HIGHEST(new Highest()),
 	LOWEST(new Lowest()),
