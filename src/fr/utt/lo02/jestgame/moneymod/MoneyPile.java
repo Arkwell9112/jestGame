@@ -7,8 +7,15 @@ import javax.swing.ImageIcon;
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.core.Player;
 
-public class MoneyPile implements ICard{
+/**
+ * 
+ * @author akramsyukri
+ *
+ */
 
+public class MoneyPile implements ICard{
+	
+	
 	@Override
 	public Player chooseTrophyOwner(List<Player> players) {
 		// TODO Auto-generated method stub
