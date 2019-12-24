@@ -42,6 +42,11 @@ public class MoneyPile implements ICard{
 
 	@Override
 	public int endFaceValue(List<Player> players, Player myPlayer) {
+		return 0;
+	}
+
+	@Override
+	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
 		boolean found = false;
 		Iterator<ICard> it = myPlayer.getCapturedCards().iterator();
 		while(it.hasNext()) {
@@ -55,11 +60,6 @@ public class MoneyPile implements ICard{
 		} else {
 			return 0;
 		}
-	}
-
-	@Override
-	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
-		return 0;
 	}
 
 	@Override
