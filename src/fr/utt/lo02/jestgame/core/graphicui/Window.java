@@ -23,6 +23,7 @@ public class Window extends JFrame {
 	private PlayPanel plays;
 	private WinPanel wins;
 	private CardLayout layout;
+	private ShowPanel shows;
 
 	public Window(GraphicController controller) {
 		this.controller = controller;
@@ -35,13 +36,27 @@ public class Window extends JFrame {
 		this.setContentPane(container);
 		this.setVisible(true);
 	}
+	
+	public void showPlayPanel() {
+		layout.show(container, "plays");
+	}
 
 	public void callBack(CallBackEvent event, Object arg) {
 		controller.callBack(event, arg);
 	}
-	
+
+	public void setShowPanel(List<ICard> cards, Player player) {
+		if (shows == null) {
+			shows = new ShowPanel(this);
+			container.add(shows);
+			layout.addLayoutComponent(shows, "shows");
+		}
+		shows.setWin("Voici les cartes de votre Jest actuel", player.getName(), cards);
+		layout.show(container, "shows");
+	}
+
 	public void setWinPanel(String state, String who, List<ICard> cards) {
-		if(wins == null) {
+		if (wins == null) {
 			wins = new WinPanel(this);
 			container.add(wins);
 			layout.addLayoutComponent(wins, "wins");

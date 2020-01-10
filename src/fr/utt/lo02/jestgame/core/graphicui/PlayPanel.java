@@ -17,6 +17,8 @@ import fr.utt.lo02.jestgame.core.Player;
 
 @SuppressWarnings("serial")
 public class PlayPanel extends JPanel implements ActionListener {
+	private Player actualPlayer;
+	private JButton jestButton;
 	private List<JButton> activeCardButtons;
 	private List<JButton> passiveCardButtons;
 	private List<JLabel> trophyLabels;
@@ -35,6 +37,7 @@ public class PlayPanel extends JPanel implements ActionListener {
 	private SpringLayout layout;
 
 	public PlayPanel(byte nbPlayer, byte nbCard, byte nbTrophy, Window displayer) {
+		jestButton = new JButton("Cliquez-ici pour voir votre Jest");
 		corePath = "img\\core";
 		center = new ImageIcon(corePath + "\\center.jpg");
 		verso = new ImageIcon(corePath + "\\verso.jpg");
@@ -76,6 +79,10 @@ public class PlayPanel extends JPanel implements ActionListener {
 		actionLabel = new JLabel();
 		this.add(centerCard);
 		this.add(actionLabel);
+		this.add(jestButton);
+		layout.putConstraint(SpringLayout.SOUTH, jestButton, 0, SpringLayout.SOUTH, this);
+		layout.putConstraint(SpringLayout.EAST, jestButton, 0, SpringLayout.EAST, this);
+		jestButton.addActionListener(this);
 		Iterator<JButton> it = activeCardButtons.iterator();
 		while (it.hasNext()) {
 			this.add(it.next());
@@ -215,6 +222,7 @@ public class PlayPanel extends JPanel implements ActionListener {
 	}
 
 	public void setPlay(List<Player> players, Player activePlayer) {
+		actualPlayer = activePlayer;
 		int counter = 0;
 		if (activePlayer.getFacedUpCard() != null) {
 			activeCardButtons.get(counter).setIcon(activePlayer.getFacedUpCard().getTexture());
@@ -249,7 +257,7 @@ public class PlayPanel extends JPanel implements ActionListener {
 				while (it3.hasNext()) {
 					ICard currentCard = it3.next();
 					if (currentPlayer.getFacedUpCard() != currentCard) {
-						//à remettre vers currentCard.getTexture() pour debuggage
+						// à remettre vers currentCard.getTexture() pour debuggage
 						passiveCardButtons.get(playerCount * nbCard + counter).setIcon(verso);
 						counter++;
 					}
@@ -266,7 +274,11 @@ public class PlayPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		displayer.callBack(CallBackEvent.PLAY_PANEL, e.getActionCommand());
+		if (e.getActionCommand().contains("passive") || e.getActionCommand().contains("active")) {
+			displayer.callBack(CallBackEvent.PLAY_PANEL, e.getActionCommand());
+		} else {
+			displayer.setShowPanel(actualPlayer.getCapturedCards(), actualPlayer);
+		}
 	}
 
 }
