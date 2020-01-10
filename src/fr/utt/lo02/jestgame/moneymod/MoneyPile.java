@@ -7,37 +7,37 @@ import javax.swing.ImageIcon;
 
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.ITrophyChooser;
-import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 import fr.utt.lo02.jestgame.core.Player;
 
 /**
  * 
- * @author akramsyukri
+ * @author akramsyukri corrected by Edouard Bergé
  *
  */
 
-public class MoneyPile implements ICard{
-	
-	private TrophyType myType;
-	private Object trophyArg;
+public class MoneyPile implements ICard {
+
 	private ImageIcon texture;
 	private ITrophyChooser chooser;
-	
-	
-	public MoneyPile(ImageIcon texture, ITrophyChooser chooser) {
-		this.texture=texture;
-		this.chooser=chooser;
+	private int baseValue;
+	private String name;
+
+	public MoneyPile(ImageIcon texture, ITrophyChooser chooser, int baseValue, String name) {
+		this.texture = texture;
+		this.chooser = chooser;
+		this.baseValue = baseValue;
+		this.name = name;
 	}
-	
+
 	@Override
 	public Player chooseTrophyOwner(List<Player> players) {
-		return myType.getChooser().delegateTrophyChoose(players, this, trophyArg);
-		
+		return chooser.delegateTrophyChoose(players, this, null);
+
 	}
 
 	@Override
 	public int getUpdatedGameFaceValue(List<Player> players) {
-		return 0;
+		return baseValue;
 	}
 
 	@Override
@@ -47,30 +47,26 @@ public class MoneyPile implements ICard{
 
 	@Override
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
-		boolean found = false;
+		int found = 0;
 		Iterator<ICard> it = myPlayer.getCapturedCards().iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			ICard current = it.next();
-			if(current.getName() == "MoneyPile") {
-				found = true;
+			if (current.getColor() == "MoneyPile" && current != this) {
+				found++;
 			}
 		}
-		if(found) {
-			return 1;
-		} else {
-			return 0;
-		}
+		return found;
 	}
 
 	@Override
 	public String getName() {
-		
-		return null;
+
+		return name;
 	}
 
 	@Override
 	public String getColor() {
-		return null;
+		return "MoneyPile";
 	}
 
 	@Override
