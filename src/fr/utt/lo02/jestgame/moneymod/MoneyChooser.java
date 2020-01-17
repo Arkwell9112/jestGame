@@ -6,9 +6,18 @@ import java.util.List;
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.core.Player;
-
+/**
+ * cette classe implemente l'interface de ITrophyChooser et permet de choisir les joueurs qui ont la carte trophee
+ * @author akramsyukri
+ *
+ */
 public class MoneyChooser implements ITrophyChooser {
 
+	/**
+	 * @param players Liste de toutes les instances de Player de la partie.
+	 * @param card La carte qui doit choisir un joueur pour la recevoir en tant que trophee.
+	 * @param trophyArg Un argument permettant de choisir certains parametres lors du choix du joueur.
+	 */
 	@Override
 	public Player delegateTrophyChoose(List<Player> players, ICard card, Object trophyArg) {
 		Player best = null;

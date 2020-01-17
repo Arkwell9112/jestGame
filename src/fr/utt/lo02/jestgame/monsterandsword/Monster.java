@@ -9,12 +9,23 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * cette classe herite la classe Card et va determiner  qui a la carte Monster
+ * @author akramsyukri
+ *
+ */
 public class Monster extends Card {
 
+	/**
+	 * c'est le constructeur de la carte
+	 * @param texture Image de la carte
+	 * @param chooser Choisir la carte trophee
+	 */
 	public Monster(ImageIcon texture, ITrophyChooser chooser) {
 		super("Monster", "MonsterAndSword", 25, texture, chooser);
 	}
 
+	
 	@Override
 	public int getUpdatedGameFaceValue(List<Player> players) {
 		boolean found = false;

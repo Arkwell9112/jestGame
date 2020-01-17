@@ -7,8 +7,16 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.IPartyRules;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * cette classe implementer IPartyRules et permet de jouer de maniere l'inverse(celui avec moins de points va gagner)
+ * @author akramsyukri
+ *
+ */
 public class Jest11 implements IPartyRules {
 
+	/**
+	 * @param players Liste de toutes les instances de Player de la partie qui va choisir en premier.
+	 */
 	@Override
 	public Player chooseFirstCatch(List<Player> players) {
 		Player best = null;
@@ -30,6 +38,9 @@ public class Jest11 implements IPartyRules {
 		return best;
 	}
 
+	/**
+	 * @param players Liste de toutes les instances de Player de la partie et qui va etre choisi en tant que gagnant.
+	 */
 	@Override
 	public Player chooseWinner(List<Player> players) {
 		Player winner = null;
@@ -95,11 +106,17 @@ public class Jest11 implements IPartyRules {
 		return winner;
 	}
 
+	/**
+	 * recuper le nombre de cartes distribuee au joueur.
+	 */
 	@Override
 	public int getPlayerCardNb() {
 		return 2;
 	}
 
+	/**
+	 * @param nbPlayers recuperer le nombre de carte trophee de jouer.
+	 */
 	@Override
 	public int getTrophyCardNb(int nbPlayers) {
 		if (nbPlayers == 3) {

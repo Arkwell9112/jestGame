@@ -7,17 +7,32 @@ import fr.utt.lo02.jestgame.core.BotPlayer;
 import fr.utt.lo02.jestgame.core.IObserver;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * Cette classe herite le BotPlayer et permet de choisir le jouer de maniere aleatoire
+ * @author akramsyukri
+ *
+ */
 public class RandomPlayer extends BotPlayer {
-
+	/**
+	 * 
+	 * @param name nom du joueur
+	 * @param interfac controlleur liee a ce joueur
+	 */
 	public RandomPlayer(String name, IObserver interfac) {
 		super(name, interfac);
 	}
 
+	/**
+	 * @param players Liste de toutes les instances de Player de la partie qui va choisir la carte a mettre visible
+	 */
 	@Override
 	protected int chooseFaceUp(List<Player> players) {
 		return (int) (Math.random() * getHand().size());
 	}
 
+	/**
+	 * @param players Liste de toutes les instances de Player de la partie et qui va choisir l'autre joueur pour prendre la carte
+	 */
 	@Override
 	protected Object[] chooseCatchUp(List<Player> players) {
 		int choosed = (int) (Math.random() * players.size());

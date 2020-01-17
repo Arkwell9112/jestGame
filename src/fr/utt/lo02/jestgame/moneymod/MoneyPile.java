@@ -10,8 +10,8 @@ import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.core.Player;
 
 /**
- * 
- * @author akramsyukri corrected by Edouard Bergé
+ * cette classe implemente ICard et permet de jouer avec 4 cartes supplementaire de 'MoneyPile'
+ * @author akramsyukri corrected by Edouard Berge
  *
  */
 
@@ -22,6 +22,13 @@ public class MoneyPile implements ICard {
 	private int baseValue;
 	private String name;
 
+	/**
+	 * 
+	 * @param texture Image de la carte
+	 * @param chooser Choisir les jouers pour donner la carte trophee
+	 * @param baseValue Valeur faciale de la carte
+	 * @param name Nom de la carte
+	 */
 	public MoneyPile(ImageIcon texture, ITrophyChooser chooser, int baseValue, String name) {
 		this.texture = texture;
 		this.chooser = chooser;
@@ -29,22 +36,36 @@ public class MoneyPile implements ICard {
 		this.name = name;
 	}
 
+	/**
+	 * @param Liste de toutes les instances de Player de la partie et qui va etre choisi en tant que joueur qui a la trophee.
+	 */
 	@Override
 	public Player chooseTrophyOwner(List<Player> players) {
 		return chooser.delegateTrophyChoose(players, this, null);
 
 	}
 
+	/**
+	 *@param players Liste de toutes les instances de Player de la partie
+	 */
 	@Override
 	public int getUpdatedGameFaceValue(List<Player> players) {
 		return baseValue;
 	}
 
+	/**
+	 * @param players Liste de toutes les instances de Player de la partie
+	 * @param myPlayer Le joueur qui possede cette instance de carte.
+	 */
 	@Override
 	public int endFaceValue(List<Player> players, Player myPlayer) {
 		return 0;
 	}
 
+	/**
+	 * @param players Liste de toutes les instances de Player de la partie
+	 * @param myPlayer myPlayer Le joueur qui possede cette instance de carte.
+	 */
 	@Override
 	public int endSpecialFaceValue(List<Player> players, Player myPlayer) {
 		int found = 0;
@@ -57,23 +78,35 @@ public class MoneyPile implements ICard {
 		}
 		return found;
 	}
-
+    
+	/**
+	 * getteur de nom de la carte
+	 */
 	@Override
 	public String getName() {
 
 		return name;
 	}
 
+	/**
+	 * getteur de couleur de la carte
+	 */
 	@Override
 	public String getColor() {
 		return "MoneyPile";
 	}
 
+	/**
+	 * getteur de valeur de couleur de la carte
+	 */
 	@Override
 	public int getColorValue() {
 		return 26;
 	}
 
+	/**
+	 * getteur de l'image de la carte
+	 */
 	@Override
 	public ImageIcon getTexture() {
 		return texture;
