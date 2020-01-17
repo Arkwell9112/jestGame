@@ -9,15 +9,32 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.IMod;
 import fr.utt.lo02.jestgame.api.ModType;
 
+/**
+ * Vue et contrÃ´leur pour le jeu en mode ligne de commande.
+ * @author Edouard
+ *
+ */
 public class CommandInterface implements IObserver {
 	/**
-	 *
+	 * Liste de toutes les instances de Player de la partie.
 	 */
 	private Object[] players;
+	/**
+	 * Dernier object a avoir Ã©tÃ© observÃ©.
+	 */
 	private Observable lastObserved;
+	/**
+	 * Joueur en cours. Permet de stocker le joueur en cours utile dans les mÃ©thodes CatchUp.
+	 */
 	private Player currentPlayer;
+	/**
+	 * Scanner d'entrÃ©e de la console.
+	 */
 	private Scanner input;
 
+	/**
+	 * Constructeur de la classe.
+	 */
 	public CommandInterface() {
 		input = new Scanner(System.in);
 	}
@@ -37,7 +54,7 @@ public class CommandInterface implements IObserver {
 			setWinPartyMenu(NotEvent.WIN_MENU, args);
 		} else if (callEvent == NotEvent.SHOW_TROPHY) {
 			Pot pot = (Pot) args[0];
-			System.out.println("Les trophées sont : ");
+			System.out.println("Les trophï¿½es sont : ");
 			List<ICard> cards = pot.getTrophies();
 			Iterator<ICard> it = cards.iterator();
 			while (it.hasNext()) {
@@ -48,8 +65,9 @@ public class CommandInterface implements IObserver {
 	}
 
 	/**
-	 * @param mods
-	 * @param observed
+	 * MÃ©thode mettant en place le menu de choix des paramÃ¨tres de la partie.
+	 * @param mods Tous les mods chargÃ©s par le GameLoader.
+	 * @param observed L'observable qui a dÃ©clenchÃ© la mÃ©thode.
 	 */
 	private void setCreatePartyMenu(IMod[] mods, Observable observed) {
 		List<IMod> players = new ArrayList<IMod>();
@@ -84,13 +102,13 @@ public class CommandInterface implements IObserver {
 					nbPlayers = buffer;
 					tfPlayer = false;
 				} else {
-					System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+					System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 				}
 			} else {
 				if (input.hasNext()) {
 					input.next();
 				}
-				System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+				System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 			}
 		} while (tfPlayer);
 
@@ -103,20 +121,20 @@ public class CommandInterface implements IObserver {
 					nbBots = buffer;
 					tfBot = false;
 				} else {
-					System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+					System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 				}
 			} else {
 				if (input.hasNext()) {
 					input.next();
 				}
-				System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+				System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 			}
 		} while (tfBot);
 
 		byte count = 0;
 
 		while (count < nbBots && nbBots != 0) {
-			System.out.println("Veuillez choisir une IA pour le robot " + count + ", répondre par 1/0");
+			System.out.println("Veuillez choisir une IA pour le robot " + count + ", rï¿½pondre par 1/0");
 
 			boolean choosed = false;
 			byte counter = 0;
@@ -140,13 +158,13 @@ public class CommandInterface implements IObserver {
 								tfStrategy = false;
 							}
 						} else {
-							System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+							System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 						}
 					} else {
 						if (input.hasNext()) {
 							input.next();
 						}
-						System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+						System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 					}
 				} while (tfStrategy);
 
@@ -164,7 +182,7 @@ public class CommandInterface implements IObserver {
 		byte counter = 0;
 
 		while (choosed == false) {
-			System.out.println("Veuillez choisir un IA mode de régle, répondre par 1/0");
+			System.out.println("Veuillez choisir un IA mode de rï¿½gle, rï¿½pondre par 1/0");
 			System.out.println(rules.get(counter).getName());
 			System.out.println(rules.get(counter).getDescription());
 
@@ -184,13 +202,13 @@ public class CommandInterface implements IObserver {
 							tfRules = false;
 						}
 					} else {
-						System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+						System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 					}
 				} else {
 					if (input.hasNext()) {
 						input.next();
 					}
-					System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+					System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 				}
 			} while (tfRules);
 
@@ -223,13 +241,13 @@ public class CommandInterface implements IObserver {
 							tfCard = false;
 						}
 					} else {
-						System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+						System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 					}
 				} else {
 					if (input.hasNext()) {
 						input.next();
 					}
-					System.out.println("Erreur d'entrée veuillez entrer les informations à nouveau");
+					System.out.println("Erreur d'entrï¿½e veuillez entrer les informations ï¿½ nouveau");
 				}
 			} while (tfCard);
 		}
@@ -246,7 +264,7 @@ public class CommandInterface implements IObserver {
 
 		Iterator<IMod> it2 = choosedPlayers.iterator();
 
-		// On retourne d'abord les joueurs, puis le nom des joueurs, puis les régles,
+		// On retourne d'abord les joueurs, puis le nom des joueurs, puis les rï¿½gles,
 		// puis le nombre de joueurs, les cartes et enfin le nombre de joueurs robots
 		while (it2.hasNext()) {
 			returner.add(it2.next());
@@ -272,6 +290,12 @@ public class CommandInterface implements IObserver {
 		observed.notifyBack(NotEvent.CREATE_PARTY_MENU, returner.toArray(new Object[returner.size()]));
 	}
 
+	/**
+	 * MÃ©thode mettant en place de menu de choix de capture et permet d'effectuer les actions nÃ©cessaires.
+	 * @param event L'event ayant dÃ©clenchÃ© la mÃ©thode.
+	 * @param args Les arguments passÃ©s par l'observable qui a dÃ©clenchÃ© la mÃ©thode.
+	 * @param observed L'observable qui a dÃ©clenchÃ© la mÃ©thode.
+	 */
 	private void setCatchUpMenu(NotEvent event, Object[] args, Observable observed) {
 		if (event == NotEvent.CATCH_UP_MENU) {
 			players = args;
@@ -286,7 +310,7 @@ public class CommandInterface implements IObserver {
 			while (!choosed) {
 				System.out.println("Joueur : " + currentPlayer.getName());
 				System.out.println(
-						"Veuillez choisir un joueur à capturer, il est possible de vous capturer vous même seulement en dernier recour");
+						"Veuillez choisir un joueur ï¿½ capturer, il est possible de vous capturer vous mï¿½me seulement en dernier recour");
 				System.out.println("Entrez le chiffre correspondant au joueur que vous souhaitez capturer");
 				int counter = 0;
 				for (Object obj : args) {
@@ -303,7 +327,7 @@ public class CommandInterface implements IObserver {
 					if (((next >= 0 && next <= args.length - 1) && pos != next) || (pos == next && everybody)) {
 						System.out.println("Votre choix est bien pris en compte");
 						System.out.println(
-								"Voulez vous capturer la carte face visible ou une autre carte, répondre par 1/0");
+								"Voulez vous capturer la carte face visible ou une autre carte, rï¿½pondre par 1/0");
 						if (input.hasNextByte()) {
 							byte nexte = input.nextByte();
 							if (nexte == 1) {
@@ -317,45 +341,51 @@ public class CommandInterface implements IObserver {
 								Object[] back = { playersList.get(next), false };
 								observed.notifyBack(NotEvent.CATCH_UP_MENU, back);
 							} else {
-								System.out.println("L'entrée n'est pas correcte");
+								System.out.println("L'entrï¿½e n'est pas correcte");
 							}
 						} else {
 							if (input.hasNext()) {
 								input.next();
 							}
-							System.out.println("L'entrée n'est pas correcte");
+							System.out.println("L'entrï¿½e n'est pas correcte");
 						}
 					} else {
-						System.out.println("L'entrée n'est pas correcte");
+						System.out.println("L'entrï¿½e n'est pas correcte");
 					}
 				} else {
 					if (input.hasNext()) {
 						input.next();
 					}
-					System.out.println("L'entrée n'est pas correcte");
+					System.out.println("L'entrï¿½e n'est pas correcte");
 				}
 			}
 		} else if (event == NotEvent.CATCH_UP_MENU_BOT) {
 			Player theplayer = (Player) args[0];
 			Player thecaptured = (Player) args[1];
 			boolean face = (boolean) args[2];
-			System.out.println("Le joueur : " + theplayer.getName() + " a décidé de capturer le joueur : "
-					+ thecaptured.getName() + " la carte capturé sera de face visible : " + face);
+			System.out.println("Le joueur : " + theplayer.getName() + " a dï¿½cidï¿½ de capturer le joueur : "
+					+ thecaptured.getName() + " la carte capturï¿½ sera de face visible : " + face);
 		} else if (event == NotEvent.CATCH_UP_MENU_ERROR) {
-			System.out.println("Le choix du joueur a capturé n'est pas correct veuillez choisir à nouveau");
+			System.out.println("Le choix du joueur a capturï¿½ n'est pas correct veuillez choisir ï¿½ nouveau");
 			setCatchUpMenu(NotEvent.CATCH_UP_MENU, players, lastObserved);
 		} else if (event == NotEvent.CATCH_UP_MENU_SUCCESS) {
 			ICard card = (ICard) args[0];
-			System.out.println("La carte : " + card.getName() + " " + card.getColor() + " a correctement été capturé");
+			System.out.println("La carte : " + card.getName() + " " + card.getColor() + " a correctement ï¿½tï¿½ capturï¿½");
 		}
 	}
 
+	/**
+	 * MÃ©thode mettant en place le menu de choix de carte face visible et permet de faire les actions nÃ©cessaires.
+	 * @param event L'event ayant dÃ©clenchÃ© la mÃ©thode.
+	 * @param args Les arguments passÃ©s par l'observable qui a dÃ©clenchÃ© la mÃ©thode.
+	 * @param observed L'observable qui a dÃ©clenchÃ© la mÃ©thode.
+	 */
 	private void setFaceUpMenu(NotEvent event, Object[] args, Observable observed) {
 		if (event == NotEvent.FACE_UP_MENU) {
 			Player current = (Player) args[0];
 			System.out.println("Joueur : " + current.getName());
 			System.out.println(
-					"Veuillez choisir une de vos cartes à mettre face visible, répondre par le numéro de la carte");
+					"Veuillez choisir une de vos cartes ï¿½ mettre face visible, rï¿½pondre par le numï¿½ro de la carte");
 			int counter = 0;
 			Iterator<ICard> it = current.getHand().iterator();
 			while (it.hasNext()) {
@@ -374,13 +404,13 @@ public class CommandInterface implements IObserver {
 						observed.notifyBack(NotEvent.FACE_UP_MENU, back);
 						tf = false;
 					} else {
-						System.out.println("L'entrée est incorrecte");
+						System.out.println("L'entrï¿½e est incorrecte");
 					}
 				} else {
 					if (input.hasNext()) {
 						input.next();
 					}
-					System.out.println("Erreur d'entrée");
+					System.out.println("Erreur d'entrï¿½e");
 				}
 			} while (tf);
 		} else if (event == NotEvent.FACE_UP_MENU_BOT) {
@@ -393,6 +423,11 @@ public class CommandInterface implements IObserver {
 		}
 	}
 
+	/**
+	 * MÃ©thode mettant en place le menu de fin de partie affichant les scores et les cartes de chaque joueur.
+	 * @param event L'event ayant dÃ©clenchÃ© la mÃ©thode.
+	 * @param args Les arguments passÃ©s par l'observable qui a dÃ©clenchÃ© la mÃ©thode.
+	 */
 	private void setWinPartyMenu(NotEvent event, Object[] args) {
 		System.out.println("Le joueur gagnant est : " + currentPlayer.getName());
 		System.out.println("Voici tous les scores");
@@ -405,7 +440,7 @@ public class CommandInterface implements IObserver {
 		for (Player player : players) {
 			System.out.println(
 					"Le joueur : " + player.getName() + " a obtenu un score de : " + player.calculateScore(players));
-			System.out.println("Avec les cartes capturés finales suivantes : ");
+			System.out.println("Avec les cartes capturï¿½s finales suivantes : ");
 			Iterator<ICard> it = player.getCapturedCards().iterator();
 			while (it.hasNext()) {
 				ICard current = it.next();
@@ -416,6 +451,12 @@ public class CommandInterface implements IObserver {
 		}
 	}
 
+	/**
+	 * MÃ©thode permettant d'obtenir l'index d'un joueur dans une liste.
+	 * @param findings Liste de toutes les instances de Player de la partie.
+	 * @param player Le joueur dont on cherche la prÃ©sence.
+	 * @return Renvoie l'index du joueur dans la liste.
+	 */
 	private int findYou(List<Player> findings, Player player) {
 		for (int i = 0; i <= findings.size(); i++) {
 			if (findings.get(i) == player) {
@@ -425,6 +466,12 @@ public class CommandInterface implements IObserver {
 		return -1;
 	}
 
+	/**
+	 * MÃ©thode permettant de savoir si player est le dernier Ã  jouer ou non parmis findings.
+	 * @param findings Liste de toutes les instances de Player de la partie.
+	 * @param player Le joueur dont on cherche si il est le dernier Ã  jouer.
+	 * @return Renvoie si le joueur est le dernier Ã  jouer ou non.
+	 */
 	private boolean everyChoosed(List<Player> findings, Player player) {
 		int counter = 0;
 		for (Player current : findings) {

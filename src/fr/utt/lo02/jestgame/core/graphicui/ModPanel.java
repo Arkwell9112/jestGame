@@ -12,6 +12,11 @@ import javax.swing.SpringLayout;
 
 import fr.utt.lo02.jestgame.api.IMod;
 
+/**
+ * Panel pour le choix des mods.
+ * @author Edouard
+ *
+ */
 @SuppressWarnings("serial")
 public class ModPanel extends JPanel implements ActionListener {
 	private JLabel title;
@@ -23,6 +28,9 @@ public class ModPanel extends JPanel implements ActionListener {
 	private SpringLayout layout;
 	private JLabel beforeTitle;
 
+	/**
+	 * @param displayer La vue associé à ce panel.
+	 */
 	public ModPanel(Window displayer) {
 		this.displayer = displayer;
 		layout = new SpringLayout();
@@ -64,11 +72,19 @@ public class ModPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Méthode mettant à jour le panel pour le mod.
+	 * @param mod Le mod a afficher.
+	 */
 	public void displayMod(IMod mod) {
 		title.setText(mod.getName());
 		text.setText(mod.getDescription());
 	}
 
+	/**
+	 * Méthode mettant à jour le titre de la fenêtre.
+	 * @param title Titre de la fenêtre.
+	 */
 	public void setBeforeTitle(String title) {
 		beforeTitle.setText(title);
 	}

@@ -12,17 +12,52 @@ import fr.utt.lo02.jestgame.core.Observable;
 import fr.utt.lo02.jestgame.core.Player;
 import fr.utt.lo02.jestgame.core.Pot;
 
+/**
+ * Contrôleur du patron MVC pour le mode graphique.
+ * @author Edouard
+ *
+ */
 public class GraphicController implements IObserver {
+	/**
+	 * Référence vers la vue graphique.
+	 */
 	private Window window;
+	/**
+	 * Nombre de joueurs de la partie.
+	 */
 	private byte nbPlayer;
+	/**
+	 * Nombre de bots de la partie.
+	 */
 	private byte nbBot;
+	/**
+	 * Variable de stockage.
+	 */
 	private boolean choosed;
+	/**
+	 * Nombre de cartes dans la main des joueurs.
+	 */
 	private byte nbCard;
+	/**
+	 * Variable de stockage.
+	 */
 	private String name;
+	/**
+	 * Référence vers le Pot de la partie.
+	 */
 	private Pot trophyPot;
 
+	/**
+	 * Dernier observable à avoir notifié cet Observer.
+	 */
 	private Observable lastObserved;
+	/**
+	 * Référence vers les joueurs de la partie.
+	 */
 	private Object[] lastPlayers;
+	/**
+	 * Dernier joueur ayant joué.
+	 */
 	private Player currentPlayer;
 
 	public GraphicController() {
@@ -55,6 +90,10 @@ public class GraphicController implements IObserver {
 		}
 	}
 
+	/**
+	 * @param event Event ayant déclenché le callBack.
+	 * @param arg Argument à passer au contrôleur.
+	 */
 	public synchronized void callBack(CallBackEvent event, Object arg) {
 		if (event == CallBackEvent.PLAYER_PANEL) {
 			nbPlayer = (byte) arg;
@@ -70,6 +109,10 @@ public class GraphicController implements IObserver {
 		this.notifyAll();
 	}
 
+	/**
+	 * Méthode permettant la mise en place du win menu, affichant les scores des joueurs ainsi que leurs Jest.
+	 * @param args Argument à passer au win menu.
+	 */
 	private synchronized void setWinMenu(Object[] args) {
 		List<Player> players = new ArrayList<Player>();
 		for (Object obj : args) {
@@ -97,6 +140,11 @@ public class GraphicController implements IObserver {
 		}
 	}
 
+	/**
+	 * Méthode mettant en place le menu de capture et permet d'effectuer les vérifications et actions nécessaires.
+	 * @param observed L'observable ayant déclenché cette méthode.
+	 * @param args Les arguments à passer au contrôleur.
+	 */
 	private synchronized void setCatchUpMenu(Observable observed, Object[] args) {
 		lastObserved = observed;
 		lastPlayers = args;
@@ -104,7 +152,7 @@ public class GraphicController implements IObserver {
 		for (Object obj : args) {
 			players.add((Player) obj);
 		}
-		window.setPlayPanel("Veuillez choisir un joueur � capturer et une carte � capturer en cliquant dessus", players,
+		window.setPlayPanel("Veuillez choisir un joueur � capturer et une carte � capturer en cliquant dessus", players,
 				currentPlayer);
 		choosed = false;
 		while (!choosed) {
@@ -163,11 +211,16 @@ public class GraphicController implements IObserver {
 		}
 	}
 
+	/**
+	 * Méthode mettant en place le menu de mise en face visible et permet d'effectuer les vérifications et actions nécessaires.
+	 * @param observed L'observable ayant déclenché cette méthode.
+	 * @param args Les arguments à passer au contrôleur.
+	 */
 	private synchronized void setFaceUpMenu(Observable observed, Object[] args) {
 		@SuppressWarnings("unchecked")
 		List<Player> players = (List<Player>) args[1];
 		Player activePlayer = (Player) args[0];
-		window.setPlayPanel("Veuillez choisir une de vos cartes � mettre face visible", players, activePlayer);
+		window.setPlayPanel("Veuillez choisir une de vos cartes � mettre face visible", players, activePlayer);
 		choosed = false;
 		while (!choosed) {
 			try {
@@ -184,6 +237,11 @@ public class GraphicController implements IObserver {
 		}
 	}
 
+	/**
+	 * Méthode permattant la mise en place du menu de paramétrage de la partie en fonction des mods présents.
+	 * @param mods Les mods chargés par GameLoader
+	 * @param observed L'observable ayant déclenché la méthode.
+	 */
 	private synchronized void setCreatePartyMenu(IMod[] mods, Observable observed) {
 		window.setNbPlayerPanel();
 		try {
@@ -257,7 +315,7 @@ public class GraphicController implements IObserver {
 		while (!choosed) {
 			if (it2.hasNext()) {
 				IMod current = it2.next();
-				window.setModPanel(current, "Veuillez choisir un mod de r�gles");
+				window.setModPanel(current, "Veuillez choisir un mod de r�gles");
 				try {
 					this.wait();
 				} catch (InterruptedException e) {

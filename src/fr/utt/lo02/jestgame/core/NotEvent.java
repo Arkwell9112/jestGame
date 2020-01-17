@@ -1,5 +1,10 @@
 package fr.utt.lo02.jestgame.core;
 
+/**
+ * Enumération des différents événements pouvant conduire à la notification d'un observeur.
+ * @author Edouard
+ *
+ */
 public enum NotEvent {
 	CREATE_PARTY_MENU,
 	FACE_UP_MENU,

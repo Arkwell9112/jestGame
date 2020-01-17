@@ -21,7 +21,7 @@ public abstract class Player extends Observable {
 	 */
 	private List<ICard> capturedCards;
 	/**
-	 * Nomdu joueur.
+	 * Nom du joueur.
 	 */
 	private String name;
 	/**

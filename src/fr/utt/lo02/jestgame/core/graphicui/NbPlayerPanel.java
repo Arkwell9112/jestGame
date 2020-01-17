@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+/**
+ * Panel de choix du nombre de joueurs dans la partie.
+ * @author Edouard
+ *
+ */
 @SuppressWarnings("serial")
 public class NbPlayerPanel extends JPanel implements ActionListener {
 	private JLabel text;
@@ -18,6 +23,9 @@ public class NbPlayerPanel extends JPanel implements ActionListener {
 	private SpringLayout layout;
 	private Window displayer;
 
+	/**
+	 * @param displayer La vue associé à ce panel.
+	 */
 	public NbPlayerPanel(Window displayer) {
 		this.displayer = displayer;
 		text = new JLabel("Entrez un nombre de joueurs compris entre 3 et 4");

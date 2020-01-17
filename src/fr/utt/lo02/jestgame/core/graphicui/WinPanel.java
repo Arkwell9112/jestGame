@@ -13,6 +13,11 @@ import javax.swing.SpringLayout;
 
 import fr.utt.lo02.jestgame.api.ICard;
 
+/**
+ * Panel affichant les scores et cartes des joueurs en fin de partie.
+ * @author Edouard
+ *
+ */
 @SuppressWarnings("serial")
 public class WinPanel extends JPanel implements ActionListener {
 	private JLabel state;
@@ -22,6 +27,9 @@ public class WinPanel extends JPanel implements ActionListener {
 	private SpringLayout layout;
 	private JButton next;
 
+	/**
+	 * @param displayer La vue associé à ce panel.
+	 */
 	public WinPanel(Window displayer) {
 		state = new JLabel();
 		who = new JLabel();
@@ -46,6 +54,12 @@ public class WinPanel extends JPanel implements ActionListener {
 		layout.putConstraint(SpringLayout.SOUTH, next, 0, SpringLayout.SOUTH, this);
 	}
 
+	/**
+	 * Méthode permettant la mise à jour des graphismes permettant l'affichage des Jest des joueurs et de leur score à la fin du jeu.
+	 * @param state Phrase à afficher au dessus du Jest du joueur.
+	 * @param who Le nom du joueur.
+	 * @param cards Liste des cartes dans le Jest du joueur.
+	 */
 	public void setWin(String state, String who, List<ICard> cards) {
 		this.state.setText(state);
 		this.who.setText(who);

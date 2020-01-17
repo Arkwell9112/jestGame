@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+/**
+ * Panel pourle choix du nombre de bot.
+ * @author Edouard
+ *
+ */
 @SuppressWarnings("serial")
 public class NbBotPanel extends JPanel implements ActionListener {
 	private JLabel text;
@@ -19,6 +24,10 @@ public class NbBotPanel extends JPanel implements ActionListener {
 	private Window displayer;
 	private byte nbPlayer;
 
+	/**
+	 * @param displayer La vue associé à ce panel.
+	 * @param nbPlayer Nombre de joueurs dans la partie.
+	 */
 	public NbBotPanel(Window displayer, byte nbPlayer) {
 		this.nbPlayer = nbPlayer;
 		this.displayer = displayer;

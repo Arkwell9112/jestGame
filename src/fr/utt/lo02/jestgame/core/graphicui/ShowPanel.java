@@ -13,6 +13,11 @@ import javax.swing.SpringLayout;
 
 import fr.utt.lo02.jestgame.api.ICard;
 
+/**
+ * Panel d'affichage des Jests des joueurs en cour de partie.
+ * @author Edouard
+ *
+ */
 @SuppressWarnings("serial")
 public class ShowPanel extends JPanel implements ActionListener {
 	private JLabel state;
@@ -22,12 +27,15 @@ public class ShowPanel extends JPanel implements ActionListener {
 	private SpringLayout layout;
 	private JButton next;
 
+	/**
+	 * @param displayer La vue associé à ce panel.
+	 */
 	public ShowPanel(Window displayer) {
 		state = new JLabel();
 		who = new JLabel();
 		cards = new ArrayList<JLabel>();
 		layout = new SpringLayout();
-		next = new JButton("Revenir � la partie");
+		next = new JButton("Revenir � la partie");
 		next.addActionListener(this);
 		this.displayer = displayer;
 		this.setLayout(layout);
@@ -46,6 +54,12 @@ public class ShowPanel extends JPanel implements ActionListener {
 		layout.putConstraint(SpringLayout.SOUTH, next, 0, SpringLayout.SOUTH, this);
 	}
 
+	/**
+	 * Méthode permettant la mise à jour des graphismes permettant l'affichage des Jest des joueurs pendant le jeu.
+	 * @param state Phrase à afficher au dessus du Jest du joueur.
+	 * @param who Le nom du joueur.
+	 * @param cards Liste des cartes dans le Jest du joueur.
+	 */
 	public void setWin(String state, String who, List<ICard> cards) {
 		this.state.setText(state);
 		this.who.setText(who);

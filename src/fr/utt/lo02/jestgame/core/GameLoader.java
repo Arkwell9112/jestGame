@@ -15,9 +15,21 @@ import fr.utt.lo02.jestgame.core.graphicui.GraphicController;
 
 public class GameLoader extends Observable {
 
+	/**
+	 * La partie en cours.
+	 */
 	private Party currentParty;
+	/**
+	 * Le Controller de vue en cours.
+	 */
 	private IObserver currentInterface;
+	/**
+	 * Liste des mods actuellement chargÃ©s.
+	 */
 	private IMod[] loadedMods;
+	/**
+	 * Le jeu est-il en mode graphique ou ligne de commande.
+	 */
 	private static boolean isGraphic;
 
 	public static void main(String[] args) {
@@ -31,28 +43,31 @@ public class GameLoader extends Observable {
 		gameLoader.startGame();
 	}
 
+	/**
+	 * @return Renvoie la liste de tous les mods prÃ©sents dans le dossier mods. Les mods sont renvoyÃ©s sous la forme d'une instance de leur classe implÃ©metant IMod.
+	 */
 	public static IMod[] loadMods() {
 		List<String> names = new ArrayList<String>();
 		List<URL> urls = new ArrayList<URL>();
 		List<IMod> mods = new ArrayList<IMod>();
 
-		// Récupération de tous les fichiers contenus dans mods en triant par leur
-		// extension, uniquement les .jar sont conservés
+		// Rï¿½cupï¿½ration de tous les fichiers contenus dans mods en triant par leur
+		// extension, uniquement les .jar sont conservï¿½s
 		File[] files = new File("mods").listFiles(new ModFilter());
 
-		// Récupération du nom de la classe principale dans chaques fichiers .jar
+		// Rï¿½cupï¿½ration du nom de la classe principale dans chaques fichiers .jar
 		for (File file : files) {
 			JarFile jarFile = null;
 
 			try {
 				jarFile = new JarFile(file);
 
-				// Ajout du nom de clase principale à la liste des noms par récupération dans le
+				// Ajout du nom de clase principale ï¿½ la liste des noms par rï¿½cupï¿½ration dans le
 				// manifest
 				names.add(jarFile.getManifest().getMainAttributes().getValue("Mod-main-class"));
 
 				// On ajoute ensuite l'url de tous les fichiers dont le nom de classe principale
-				// a été correctement récupéré
+				// a ï¿½tï¿½ correctement rï¿½cupï¿½rï¿½
 				urls.add(file.toURI().toURL());
 
 			} catch (IOException e) {
@@ -70,11 +85,11 @@ public class GameLoader extends Observable {
 		// On classload toutes les classes des fichiers de urls
 		ClassLoader loader = new URLClassLoader(urls.toArray(new URL[urls.size()]), GameLoader.class.getClassLoader());
 
-		// On récupére ensuite toutes les classes principales à charger
+		// On rï¿½cupï¿½re ensuite toutes les classes principales ï¿½ charger
 		Iterator<String> it = names.iterator();
 
 		while (it.hasNext()) {
-			// On récupére les classes principales
+			// On rï¿½cupï¿½re les classes principales
 			try {
 				Class<?> modClass = Class.forName(it.next(), true, loader);
 
@@ -104,10 +119,14 @@ public class GameLoader extends Observable {
 				e.printStackTrace();
 			}
 		}
-		// On retourne enfin un tableau de tous les mods chargés
+		// On retourne enfin un tableau de tous les mods chargï¿½s
 		return mods.toArray(new IMod[mods.size()]);
 	}
 
+	/**
+	 * Constructeur de GameLoader, instancie le Controller de vue correct et envoit vers le choix de partie.
+	 * @param mods Liste des mods chargÃ©s.
+	 */
 	public GameLoader(IMod[] mods) {
 		this.loadedMods = mods;
 		if (isGraphic) {
@@ -156,6 +175,9 @@ public class GameLoader extends Observable {
 
 	}
 
+	/**
+	 * Lance la partie en cours.
+	 */
 	public void startGame() {
 		currentParty.beginParty();
 	}

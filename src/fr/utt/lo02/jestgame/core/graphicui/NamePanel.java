@@ -9,6 +9,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+/**
+ * Panel pour le choix des noms.
+ * @author Edouard
+ *
+ */
 @SuppressWarnings("serial")
 public class NamePanel extends JPanel implements ActionListener {
 	private JLabel text;
@@ -17,6 +22,9 @@ public class NamePanel extends JPanel implements ActionListener {
 	private SpringLayout layout;
 	private Window displayer;
 
+	/**
+	 * @param displayer La vue associÃ© Ã  ce panel.
+	 */
 	public NamePanel(Window displayer) {
 		this.displayer = displayer;
 		text = new JLabel();
@@ -37,9 +45,13 @@ public class NamePanel extends JPanel implements ActionListener {
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, button, 0, SpringLayout.HORIZONTAL_CENTER, this);
 	}
 
+	/**
+	 * MÃ©thode mettant Ã  jour le titre pourle choix des noms.
+	 * @param nb Index du joueur dont on demande le nom.
+	 */
 	public void askName(byte nb) {
 		text.setText("Veuillez entrer le nom du joueur: " + nb
-				+ ", le nom des bots doit être donné dans le même ordre que le choix des IAs et les noms des joueurs humains doivent être donné en dernier svp");
+				+ ", le nom des bots doit ï¿½tre donnï¿½ dans le mï¿½me ordre que le choix des IAs et les noms des joueurs humains doivent ï¿½tre donnï¿½ en dernier svp");
 	}
 
 	@Override

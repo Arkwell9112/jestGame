@@ -4,8 +4,18 @@ import java.util.List;
 
 import fr.utt.lo02.jestgame.api.ICard;
 
+/**
+ * Concrétisation de Player pour les joueurs humains.
+ * @author Edouard
+ *
+ */
 public class HumanPlayer extends Player {
 
+	/**
+	 * Constructeur de la classe.
+	 * @param name Nom du joueur.
+	 * @param interfac Controller lié à ce joueur.
+	 */
 	public HumanPlayer(String name, IObserver interfac) {
 		super(name, interfac);
 	}

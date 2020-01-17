@@ -15,6 +15,11 @@ import javax.swing.SpringLayout;
 import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * Panel permettant de jouer (affichage des cartes récupération des inputs joueur).
+ * @author Edouard
+ *
+ */
 @SuppressWarnings("serial")
 public class PlayPanel extends JPanel implements ActionListener {
 	private Player actualPlayer;
@@ -36,6 +41,12 @@ public class PlayPanel extends JPanel implements ActionListener {
 	private Window displayer;
 	private SpringLayout layout;
 
+	/**
+	 * @param nbPlayer Nombre de joueurs dans la partie.
+	 * @param nbCard Nombre de cartes dans la main des joueurs.
+	 * @param nbTrophy Nombre de trophées de la partie.
+	 * @param displayer La vue associé à ce panel.
+	 */
 	public PlayPanel(byte nbPlayer, byte nbCard, byte nbTrophy, Window displayer) {
 		jestButton = new JButton("Cliquez-ici pour voir votre Jest");
 		corePath = "img\\core";
@@ -207,6 +218,10 @@ public class PlayPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Méthode mettant en place le graphisme des trophées.
+	 * @param cards Les trophées.
+	 */
 	public void setTrophies(List<ICard> cards) {
 		if (cards.size() == nbTrophy) {
 			Iterator<JLabel> it = trophyLabels.iterator();
@@ -217,11 +232,20 @@ public class PlayPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Méthode mettant en place le nom de l'action en cours.
+	 * @param label Titre de l'action.
+	 */
 	public void setActionLabel(String label) {
 		actionLabel.setText(label);
 	}
 
-	public void setPlay(List<Player> players, Player activePlayer) {
+	/**
+	 * Méthode mettant à jour les graphismes du panel de jeu.
+	 * @param players Liste des joueurs de la partie.
+	 * @param activePlayer Le joueur actif.
+	 */
+	public void setPlay(List<Player> players, Player activePlayer) {  
 		actualPlayer = activePlayer;
 		int counter = 0;
 		if (activePlayer.getFacedUpCard() != null) {
@@ -257,7 +281,7 @@ public class PlayPanel extends JPanel implements ActionListener {
 				while (it3.hasNext()) {
 					ICard currentCard = it3.next();
 					if (currentPlayer.getFacedUpCard() != currentCard) {
-						// � remettre vers currentCard.getTexture() pour debuggage
+						// � remettre vers currentCard.getTexture() pour debuggage
 						passiveCardButtons.get(playerCount * nbCard + counter).setIcon(verso);
 						counter++;
 					}

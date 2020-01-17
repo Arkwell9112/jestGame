@@ -10,12 +10,32 @@ import fr.utt.lo02.jestgame.api.IPartyRules;
 
 public class Party extends Observable {
 
+	/**
+	 * Liste des joueurs de la partie.
+	 */
 	private List<Player> players;
+	/**
+	 * Règles de la partie.
+	 */
 	private IPartyRules rules;
 	private int currentRank;
+	/**
+	 * Pot de la partie.
+	 */
 	private Pot pot;
+	/**
+	 * DrawStream de la partie.
+	 */
 	private DrawStream draw;
 
+	/**
+	 * @param newPlayers  Mods des joueurs de la partie, null pour humain, un mod de
+	 *                    Strategy quelconque pour un joueur robot.
+	 * @param cardMods    Mods de cartes de la partie.
+	 * @param ruleMode    Mod de règles de la partie.
+	 * @param interfac    Controller lié à la partie.
+	 * @param playersName Nom des joueurs de la partie.
+	 */
 	public Party(List<IMod> newPlayers, List<IMod> cardMods, IMod ruleMode, IObserver interfac,
 			List<String> playersName) {
 		addObserver(interfac);
@@ -71,6 +91,9 @@ public class Party extends Observable {
 		notifyAll(NotEvent.SHOW_TROPHY, arg);
 	}
 
+	/**
+	 * Méthode mettant fin à la partie.
+	 */
 	private void endParty() {
 		Iterator<ICard> it = pot.getTrophies().iterator();
 		while (it.hasNext()) {
@@ -86,6 +109,9 @@ public class Party extends Observable {
 		notifyAll(NotEvent.WIN_MENU, players.toArray(new Object[players.size()]));
 	}
 
+	/**
+	 * Méthode déclenchant le début des phases de capture.
+	 */
 	private void beginCatchUp() {
 		currentRank = 0;
 		Player beginner = rules.chooseFirstCatch(players);
@@ -93,7 +119,10 @@ public class Party extends Observable {
 
 	}
 
-	// Ajouter la rotation du joueur qui d�bute le faceUp
+	/**
+	 * Méthode permettant à un joueur de spécifier que c'est la fin de son tour de mise face visible.
+	 * @param player Joueur dont c'est la fin du tour.
+	 */
 	public void endFaceUpTurn(Player player) {
 		currentRank++;
 		if (currentRank > players.size() - 1) {
@@ -106,6 +135,11 @@ public class Party extends Observable {
 		}
 	}
 
+	/**
+	 * Méthode permattant à un joueur de spécifier qu'il a finit son tour de capture.
+	 * @param player Joueur dont c'est la fin du tour.
+	 * @param nextPlayer Joueur ayant été capturé.
+	 */
 	public void endCatchUpTurn(Player player, Player nextPlayer) {
 		currentRank++;
 		if (currentRank < players.size()) {
@@ -140,6 +174,9 @@ public class Party extends Observable {
 		}
 	}
 
+	/**
+	 * Méthode permettant d'initialiser puis de débuter la partie.
+	 */
 	public void beginParty() {
 		if (draw.getRemainingCards() >= rules.getPlayerCardNb() * players.size()) {
 			List<ICard> cards = new ArrayList<ICard>();
@@ -161,6 +198,10 @@ public class Party extends Observable {
 		}
 	}
 
+	/**
+	 * Méthode déclenchant le début des phases de mise en face visible.
+	 * @param fromCatch Cet appel est-il le premier ou provient-il d'une phase de capture.
+	 */
 	private void beginFaceUp(boolean fromCatch) {
 		Iterator<Player> it = players.iterator();
 		while (it.hasNext()) {
