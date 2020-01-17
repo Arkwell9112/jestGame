@@ -18,7 +18,7 @@ public interface IMod {
 	 */
 	public ModType getType();
 	/**
-	 * @return Renvoie toutes les instances que le mod est censé générer. Toutes les cartes pour un mod de carte, le manager de régle pour un mod de régles ou un joueur robot pour un mod de stratégie.
+	 * @return Renvoie toutes les instances que le mod est censé générer. Toutes les cartes pour un mod de carte, le manager de règles pour un mod de règles ou un joueur robot pour un mod de stratégie.
 	 */
 	public Object[] getInstance();
 }

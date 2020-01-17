@@ -6,9 +6,19 @@ import fr.utt.lo02.jestgame.api.IMod;
 import fr.utt.lo02.jestgame.api.ModType;
 import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 
+/**
+ * @author Edouard
+ * Classe de chargement de l'extension ajoutant les cartes de base du Jest.
+ */
 public class NormalCards implements IMod {
+	/**
+	 * Chemin vers le dossier contenant les assets de l'extension.
+	 */
 	private String path;
 
+	/**
+	 * Constructeur de la classe.
+	 */
 	public NormalCards() {
 		path = "img\\normalcards";
 	}
@@ -28,6 +38,9 @@ public class NormalCards implements IMod {
 		return ModType.CARDS;
 	}
 
+	/**
+	 * @return Renvoie les 17 cartes de base du Jest. Avec chacune leur texture, valeur de couleur, valeur de base, nom de couleur et nom de carte.
+	 */
 	@Override
 	public Object[] getInstance() {
 		Object[] arg = new Object[17];

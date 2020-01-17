@@ -7,6 +7,10 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * @author Edouard
+ * TrophyChooser permettant de trouver le joueur avec le meilleur Jest.
+ */
 public class BestJest implements ITrophyChooser{
 
 	@Override

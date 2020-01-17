@@ -8,6 +8,10 @@ import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.basemod.CouldBeAnAce;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * @author Edouard
+ * TrophyChooser permettant de trouver le joueur ayant la moins bonne carte dans la coueleur passée en trophyArg sous forme d'une string.
+ */
 public class Lowest implements ITrophyChooser {
 
 	@Override

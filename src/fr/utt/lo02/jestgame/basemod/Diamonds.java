@@ -13,21 +13,23 @@ import fr.utt.lo02.jestgame.core.Player;
 public class Diamonds extends CouldBeAnAce {
 
 	/**
-	 * Définit le type de trophé dont il s'agit en utilisant l'énumération associé
+	 * Définit le type de trophée dont il s'agit en utilisant l'énumération associé
 	 * TrophyType.
 	 */
 	private TrophyType myType;
 	/**
-	 * L'argument à envoyer pour permettre le choix du joueur pouvant récupéré ce
-	 * trophé.
+	 * L'argument à envoyer au ITrophyChooser pour paramétrer le choix en tant que
+	 * trophée.
 	 */
 	private Object trophyArg;
 
 	/**
-	 * @param name      Nom de la carte
-	 * @param baseValue Valeur faciale de base de la carte
-	 * @param type      Type de trophé de la carte
-	 * @param trophyArg Argument permettant le choix du joueur recevant le trophé
+	 * @param name      Nom de la carte.
+	 * @param baseValue Valeur faciale de base de la carte.
+	 * @param type      Type de trophée de la carte.
+	 * @param trophyArg Argument permettant le choix du joueur recevant le trophée.
+	 * @param texture   Texture de la carte. 
+	 * Constructeur de la classe.
 	 */
 	public Diamonds(String name, int baseValue, TrophyType type, Object trophyArg, ImageIcon texture) {
 		super(name, "Diamond", 20, baseValue, texture);

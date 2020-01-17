@@ -7,8 +7,15 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.IPartyRules;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * @author Edouard
+ * Classe effectuant l'implémentation de IPartyRules. Elle permet d'implémenter les règles de base du Jest.
+ */
 public class NormalPartyRules implements IPartyRules {
 
+	/**
+	 * Choisit le joueur avec la meilleure carte pour commencer (meilleure valeur faciale et meilleure couleur si égalité).
+	 */
 	@Override
 	public Player chooseFirstCatch(List<Player> players) {
 		Player best = null;
@@ -30,6 +37,9 @@ public class NormalPartyRules implements IPartyRules {
 		return best;
 	}
 
+	/**
+	 * Choisit le vainqueur de la partie, avec ces règles il s'agit du joueur avec le meilleur Jest.
+	 */
 	@Override
 	public Player chooseWinner(List<Player> players) {
 		Player best = null;

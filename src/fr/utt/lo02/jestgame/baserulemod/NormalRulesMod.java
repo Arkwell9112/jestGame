@@ -3,6 +3,10 @@ package fr.utt.lo02.jestgame.baserulemod;
 import fr.utt.lo02.jestgame.api.IMod;
 import fr.utt.lo02.jestgame.api.ModType;
 
+/**
+ * @author Edouard
+ * Classe efectuant l'implémentation de IMod.
+ */
 public class NormalRulesMod implements IMod{
 
 	@Override

@@ -8,6 +8,10 @@ import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.basemod.CouldBeAnAce;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * @author Edouard
+ * TrophyChooser permettant de trouver le joueur avec la plus haute carte dans la couleur passée en trophyArg sous la forme d'une string.
+ */
 public class Highest implements ITrophyChooser {
 
 	@Override

@@ -9,11 +9,30 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * @author Edouard
+ * Classe de base pour tous les coeurs.
+ */
 public class Hearts extends CouldBeAnAce {
 
+	/**
+	 * Définit le type de trophée dont il s'agit en utilisant l'énumération associé
+	 * TrophyType.
+	 */
 	private TrophyType myType;
+	/**
+	 * L'argument à envoyer au ITrophyChooser pour paramétrer le choix en tant que trophée.
+	 */
 	private Object trophyArg;
 
+	/**
+	 * @param name Nom de la carte.
+	 * @param baseValue Valeur de base de la carte.
+	 * @param type Type de trophée de la carte.
+	 * @param trophyArg Argument pour le choix en tant que trophée.
+	 * @param texture Texture de la carte.
+	 * Constructeur de la classe.
+	 */
 	public Hearts(String name, int baseValue, TrophyType type, Object trophyArg, ImageIcon texture) {
 		super(name, "Heart", 10, baseValue, texture);
 		this.myType = type;
