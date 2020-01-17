@@ -8,28 +8,40 @@ import fr.utt.lo02.jestgame.api.IMod;
 import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.api.ModType;
 /**
- * 
+ * cette classe implemente IMod et permet d'instancier MoneyPile
  * @author akramsyukri
  *
  */
 public class MoneyPileMod implements IMod {
 
+	/**
+	 * recuperer le nom de mod
+	 */
 	@Override
 	public String getName() {
 		return "MoneyPile Mod";
 	}
 
+	/**
+	 * recuperer la description de mod
+	 */
 	@Override
 	public String getDescription() {
 		
-		return "Extension de carte contenant la carte MoneyPile, il y a 4 cartes MoneyPile, d'une valeur de 1 à 4, elles valent toutes 0 en fin de partie mais donne 1 point bonus pour chaque autre carte moneypile dans le Jest du joueur";
+		return "Extension de carte contenant la carte MoneyPile, il y a 4 cartes MoneyPile, d'une valeur de 1 ï¿½ 4, elles valent toutes 0 en fin de partie mais donne 1 point bonus pour chaque autre carte moneypile dans le Jest du joueur";
 	}
-
+	
+	/**
+	 * recuperer type de carte choisi par l'utilsateur
+	 */
 	@Override
 	public ModType getType() {
 		return ModType.CARDS;
 	}
 
+	/**
+	 * instancier l'objet MoneyPile
+	 */
 	@Override
 	public Object[] getInstance() {
 		String path = "img\\moneypile";
