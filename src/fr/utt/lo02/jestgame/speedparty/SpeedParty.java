@@ -7,8 +7,16 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.api.IPartyRules;
 import fr.utt.lo02.jestgame.core.Player;
 
+/**
+ * Cette classe implemente IPartyRules et qui permet de jouer en mode rapide (3 cartes par joueur)
+ * @author akramsyukri
+ *
+ */
 public class SpeedParty implements IPartyRules {
 
+	/**
+	 * @param players Liste de toutes les instances de Player de la partie et qui va choisir le premier.
+	 */
 	@Override
 	public Player chooseFirstCatch(List<Player> players) {
 		Player best = null;
@@ -30,6 +38,9 @@ public class SpeedParty implements IPartyRules {
 		return best;
 	}
 
+	/**
+	 * @param players Liste de toutes les instances de Player de la partie et qui va etre choisi en tant que gagnant
+	 */
 	@Override
 	public Player chooseWinner(List<Player> players) {
 		Player best = null;
@@ -74,12 +85,17 @@ public class SpeedParty implements IPartyRules {
 		}
 		return best;
 	}
-
+	/**
+	 * recuperer le nombre de carte distribuee au joueur
+	 */
 	@Override
 	public int getPlayerCardNb() {
 		return 3;
 	}
-
+	
+	/**
+	 * recuperer le nombre de carte Trophe distribuee au joueur
+	 */
 	@Override
 	public int getTrophyCardNb(int nbPlayers) {
 		return 2;
