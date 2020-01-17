@@ -8,8 +8,9 @@ import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.core.Player;
 
 /**
- * @author Edouard
  * TrophyChooser permettant de trouver le joueur qui a le Joker.
+ * @author Edouard
+ * 
  */
 public class WithJoker implements ITrophyChooser {
 

@@ -3,8 +3,9 @@ package fr.utt.lo02.jestgame.basemod.trohychooser;
 import fr.utt.lo02.jestgame.api.ITrophyChooser;
 
 /**
- * @author Edouard
  * Enum instanciant les TrophyChoosers et permettant leur utilisation en tant que TrophyType.
+ * @author Edouard
+ * 
  */
 public enum TrophyType {
 	HIGHEST(new Highest()),

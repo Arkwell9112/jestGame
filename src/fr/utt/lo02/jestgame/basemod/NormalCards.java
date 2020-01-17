@@ -7,8 +7,9 @@ import fr.utt.lo02.jestgame.api.ModType;
 import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 
 /**
- * @author Edouard
  * Classe de chargement de l'extension ajoutant les cartes de base du Jest.
+ * @author Edouard
+ * 
  */
 public class NormalCards implements IMod {
 	/**

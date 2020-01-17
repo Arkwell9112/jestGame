@@ -9,9 +9,11 @@ import fr.utt.lo02.jestgame.api.ICard;
 import fr.utt.lo02.jestgame.core.Player;
 
 /**
+ * Carte mere de toutes les cartes qui peuvent etre un as. Il s'agit donc de toutes les cartes sauf le Joker.
+ * Cette classe herite de Card.
  * @author Edouard
- * Carte mère de toutes les cartes qui peuvent être un as. Il s'agit donc de toutes les cartes sauf le Joker.
- * Cette classe hérite de Card.
+ * 
+ * 
  */
 public abstract class CouldBeAnAce extends Card {
 
@@ -28,7 +30,7 @@ public abstract class CouldBeAnAce extends Card {
 
 	/**
 	 * @param players Liste de toutes les instances de Player de la partie.
-	 * @param myPlayer Le joueur qui possède cette instance de carte.
+	 * @param myPlayer Le joueur qui possede cette instance de carte.
 	 * @return Renvoie la valeur de base de la carte si celle-ci n'est pas un as. Sinon renvoie 1 si l'as n'est pas tout seul et 5 si l'as est tout seul.
 	 */
 	public int getAceValue(List<Player> players, Player myPlayer) {

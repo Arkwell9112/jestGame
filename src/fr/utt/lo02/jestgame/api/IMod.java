@@ -1,8 +1,9 @@
 package fr.utt.lo02.jestgame.api;
 
 /**
+ * Cette interface permet de manipuler les Mods qui sont charges par le GameLoader au lancement du jeu.
  * @author Edouard
- * Cette interface permet de manipuler les Mods qui sont chargés par le GameLoader au lancement du jeu.
+ * 
  */
 public interface IMod {
 	/**
@@ -14,11 +15,11 @@ public interface IMod {
 	 */
 	public String getDescription();
 	/**
-	 * @return Renvoie une des trois valeurs de l'enum, permet de déterminer le type de mod dont il s'agit.
+	 * @return Renvoie une des trois valeurs de l'enum, permet de determiner le type de mod dont il s'agit.
 	 */
 	public ModType getType();
 	/**
-	 * @return Renvoie toutes les instances que le mod est censé générer. Toutes les cartes pour un mod de carte, le manager de règles pour un mod de règles ou un joueur robot pour un mod de stratégie.
+	 * @return Renvoie toutes les instances que le mod est cense generer. Toutes les cartes pour un mod de carte, le manager de regles pour un mod de regles ou un joueur robot pour un mod de strategie.
 	 */
 	public Object[] getInstance();
 }

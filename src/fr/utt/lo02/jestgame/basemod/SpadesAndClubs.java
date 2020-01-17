@@ -10,18 +10,19 @@ import fr.utt.lo02.jestgame.basemod.trohychooser.TrophyType;
 import fr.utt.lo02.jestgame.core.Player;
 
 /**
+ * Classe de base pour tous les piques et trefles.
  * @author Edouard
- * Classe de base pour tous les piques et trèfles.
+ * 
  */
 public class SpadesAndClubs extends CouldBeAnAce implements ICard {
 
 	/**
-	 * Définit le type de trophée dont il s'agit en utilisant l'énumération associé
+	 * Definit le type de trophee dont il s'agit en utilisant l'enumeration associe
 	 * TrophyType.
 	 */
 	private TrophyType myType;
 	/**
-	 * L'argument à envoyer au ITrophyChooser pour paramétrer le choix en tant que trophée.
+	 * L'argument e envoyer au ITrophyChooser pour parametrer le choix en tant que trophee.
 	 */
 	private Object trophyArg;
 
@@ -30,8 +31,8 @@ public class SpadesAndClubs extends CouldBeAnAce implements ICard {
 	 * @param color Nom de la couleur de la carte.
 	 * @param colorValue Valeur de la couleur de la carte.
 	 * @param baseValue Valeur de base de la carte.
-	 * @param type Type de trophée pour cette carte.
-	 * @param trophyArg Argument pour le choix en tant que trophée.
+	 * @param type Type de trophee pour cette carte.
+	 * @param trophyArg Argument pour le choix en tant que trophee.
 	 * @param texture Texture de la carte.
 	 */
 	public SpadesAndClubs(String name, String color, int colorValue, int baseValue, TrophyType type, Object trophyArg, ImageIcon texture) {

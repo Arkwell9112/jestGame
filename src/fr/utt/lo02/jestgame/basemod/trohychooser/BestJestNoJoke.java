@@ -8,8 +8,9 @@ import fr.utt.lo02.jestgame.api.ITrophyChooser;
 import fr.utt.lo02.jestgame.core.Player;
 
 /**
- * @author Edouard
  * TrophyChooser permettant de trouver le joueur avec le meilleur Jest et qui n'a pas le Joker.
+ * @author Edouard
+ * 
  */
 public class BestJestNoJoke implements ITrophyChooser {
 

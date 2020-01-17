@@ -9,8 +9,9 @@ import fr.utt.lo02.jestgame.basemod.CouldBeAnAce;
 import fr.utt.lo02.jestgame.core.Player;
 
 /**
+ * TrophyChooser permettant de trouver le joueur avec le plus de cartes ayant pour valeur de base trophyArg. Si deux joueurs sont a egalite alors on choisit celui avec la carte de couleur la plus forte.
  * @author Edouard
- * TrophyChooser permettant de trouver le joueur avec le plus de cartes ayant pour valeur de base trophyArg. Si deux joueurs sont à égalité alors on choisit celui avec la carte de couleur la plus forte.
+ * 
  */
 public class Majority implements ITrophyChooser {
 

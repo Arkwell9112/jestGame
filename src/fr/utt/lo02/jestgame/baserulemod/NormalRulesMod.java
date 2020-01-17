@@ -4,8 +4,9 @@ import fr.utt.lo02.jestgame.api.IMod;
 import fr.utt.lo02.jestgame.api.ModType;
 
 /**
+ * Classe efectuant l'implementation de IMod.
  * @author Edouard
- * Classe efectuant l'implémentation de IMod.
+ * 
  */
 public class NormalRulesMod implements IMod{
 
@@ -16,7 +17,7 @@ public class NormalRulesMod implements IMod{
 
 	@Override
 	public String getDescription() {
-		return "Mod permettant de jouer avec les régles classiques du Jest";
+		return "Mod permettant de jouer avec les regles classiques du Jest";
 	}
 
 	@Override

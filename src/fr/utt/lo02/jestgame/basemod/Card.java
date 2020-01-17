@@ -5,10 +5,10 @@ import javax.swing.ImageIcon;
 import fr.utt.lo02.jestgame.api.ICard;
 
 /**
- * 
+ * Classe mere de toutes les classes qui sont des cartes (dans l'extension des cartes classiques du Jest).
+ * Cette classe implemente ICard.
  * @author akramsyukri 
- * Classe mère de toutes les classes qui sont des cartes (dans l'extension des cartes classiques du Jest).
- * Cette classe implémente ICard.
+ * 
  * 
  */
 public abstract class Card implements ICard {
@@ -18,7 +18,7 @@ public abstract class Card implements ICard {
 	 */
 	private String name;
 	/**
-	 * Valeur de la couleur de la carte, 10 coeur, 20 carreau, 30 trèfle, 40 pique.
+	 * Valeur de la couleur de la carte, 10 coeur, 20 carreau, 30 trefle, 40 pique.
 	 */
 	private int colorValue;
 	/**
