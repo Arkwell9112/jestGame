@@ -22,6 +22,7 @@ public abstract class CouldBeAnAce extends Card {
 	 * @param color Nom de la couleur de la carte.
 	 * @param colorValue Valeur de la couleur de la carte.
 	 * @param baseValue Valeur de base de la carte.
+	 * @param texture Texture de la carte.
 	 * Constructeur de la classe. 
 	 */
 	public CouldBeAnAce(String name, String color, int colorValue, int baseValue, ImageIcon texture) {

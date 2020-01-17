@@ -37,7 +37,7 @@ public class MoneyPile implements ICard {
 	}
 
 	/**
-	 * @param Liste de toutes les instances de Player de la partie et qui va etre choisi en tant que joueur qui a la trophee.
+	 * @param players Liste de toutes les instances de Player de la partie et qui va etre choisi en tant que joueur qui a la trophee.
 	 */
 	@Override
 	public Player chooseTrophyOwner(List<Player> players) {
